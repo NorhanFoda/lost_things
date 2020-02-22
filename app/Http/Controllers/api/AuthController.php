@@ -35,22 +35,17 @@ class AuthController extends Controller
 
         //send email with activation code
         $this->sendEmail($user->email, $code);
-        // return ['data' => 'Verification code sent'];
     }
 
     public function sendEmail($email, $code){
         $this->send($email, $code);
-        return $this->successResponse();
+        return response()->json([
+            'data' => 'Verification code email message is sent'
+        ], 200);
     }
 
     public function send($email, $code){
         Mail::to($email)->send(new sendVerificationCode($code));
-    }
-
-    public function successResponse(){
-        return response()->json([
-            'data' => 'Verification code email message is sent'
-        ], 200);
     }
 
     public function failedResponse(){
@@ -144,11 +139,14 @@ class AuthController extends Controller
             $user_code = $user->code;
             $code = $request->code;
             if($user_code == $code){
-                $user->update(['is_verified' => 1]);
+                $user->is_verified = 1; 
+                $user->save();
                 return $this->login($request);
             }
         }
-        return ['error' => 'user_id and activation code are needed'];
+        return response()->json([
+            'error' => 'user_id and activation code are need'
+        ], 400);
     }
 
     public function changePassword(Request $request){
@@ -161,7 +159,9 @@ class AuthController extends Controller
                 $user->fill(['password' => Hash::make($request->new_password)])->save();
                 return response(['data' => 'Password reset'], 200);
             }
-            return ['error' => 'Password mismatch'];
+            return response()->json([
+                'error' => 'Password mismatch'
+            ], 400);
         }
         
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -170,12 +170,22 @@ class AuthController extends Controller
     public function resendCode(Request $request){
 
         if($request->user_id && $request->email){
-            $code = $this->createVerificationCode();
-            User::find($request->user_id)->update(['code' => $code]);
-            //send email with new verification code
-            return ['data' => 'Verification code sent'];
+            if(!User::find($request->user_id)->is_verified){
+                $code = $this->createVerificationCode();
+                User::find($request->user_id)->update(['code' => $code]);
+                //send email with new verification code
+                $this->sendEmail($request->email, $code);
+                return response()->json([
+                    'data' => 'Verification code resent'
+                ], 200);
+            }
+            return response()->json([
+                'error' => 'User is already verified'
+            ], 400);
         }
-        return ['error' => 'user_id and email are required'];
+        return response()->json([
+            'error' => 'user_id and email are required'
+        ], 400);
     }
 
     private function createVerificationCode(){
