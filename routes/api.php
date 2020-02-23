@@ -37,6 +37,9 @@ Route::group([
         Route::apiResource('{post}/comments', 'api\CommentsController');
     });
 
+    //Edit profile
+    Route::apiResource('user', 'api\EditProfileController');
+
 });
 
 //user unauthorized links

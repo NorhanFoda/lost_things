@@ -5,6 +5,9 @@ namespace App\Http\Controllers\api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Http\Resources\CommentResourceCollection;
+use App\Http\Requests\CommentRequest;
 
 class CommentsController extends Controller
 {
@@ -19,7 +22,7 @@ class CommentsController extends Controller
      */
     public function index(Post $post)
     {
-        return $post;
+        return CommentResourceCollection::collection($post->comments);
     }
 
     /**
@@ -27,9 +30,9 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -38,9 +41,12 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        //
+        Comment::create($request->all());
+        return response()->json([
+            'data' => 'comment created'
+        ], 201);
     }
 
     /**

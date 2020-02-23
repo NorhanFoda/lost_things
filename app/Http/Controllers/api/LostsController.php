@@ -132,6 +132,21 @@ class LostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->checkUserAuthorization(Post::find($id)->user_id);
+        if(Post::find($id)){
+            Post::find($id)->delete();
+            return response()->json(null, 204);
+        }
+        return response()->json([
+            'error' => 'Post does not exist'
+        ], 400);
+    }
+
+    public function  checkUserAuthorization($id){
+        if(auth()->user()->id !== $id){
+            return response()->json([
+                'error' => 'User is UN AUTHORIZED to performe this action'
+            ], 400);
+        }
     }
 }

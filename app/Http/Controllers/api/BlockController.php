@@ -16,10 +16,13 @@ class BlockController extends Controller
 
     public function getBlockList(User $user)
     {
+        $this->checkUserAuthorization($user->id);
         return $user->blockList;
     }
 
     public function blockUser(Request $request){
+
+        $this->checkUserAuthorization($request->user_id);
         $this->validate($request, ['user_id' => 'required', 'blocked_id' => 'required']);
         if(!Block::where('user_id', $request->user_id)->where('blocked_id', $request->blocked_id)->first()){
             Block::create(['user_id' => $request->user_id, 'blocked_id' => $request->blocked_id]);
@@ -37,6 +40,7 @@ class BlockController extends Controller
 
     public function unblockUser(Request $request){
 
+        $this->checkUserAuthorization($request->user_id);
         $this->validate($request, ['user_id' => 'required', 'blocked_id' => 'required']);
         $block = Block::where('user_id', $request->user_id)->where('blocked_id', $request->blocked_id)->first();
         if($block){
@@ -51,5 +55,13 @@ class BlockController extends Controller
         return response()->json([
             'error' => 'The blocked user does not exist in block list'
         ], 400);
+    }
+
+    public function  checkUserAuthorization($id){
+        if(auth()->user()->id !== $id){
+            return response()->json([
+                'error' => 'User is UN AUTHORIZED to performe this action'
+            ], 400);
+        }
     }
 }

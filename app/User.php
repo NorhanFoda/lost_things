@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Post;
 use App\Models\Favorite;
 use App\Models\Block;
+use App\Models\Comment;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -74,5 +75,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function blockList(){
         return $this->hasMany(Block::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }
