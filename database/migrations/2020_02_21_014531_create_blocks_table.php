@@ -16,6 +16,7 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('blocked_id')->index();
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@ class Favorite extends Model
 {
     protected $fillable = ['post_id'];
 
-    public function products()
+    public function user()
     {
         return $this->belongsToMany(User::class);
     }

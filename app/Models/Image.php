@@ -8,7 +8,7 @@ use App\Models\Post;
 class Image extends Model
 {
     protected $fillable = [
-        'path', 'lost_id'
+        'path', 'post_id'
     ];
 
     public function post(){

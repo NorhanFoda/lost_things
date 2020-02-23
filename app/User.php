@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Post;
 use App\Models\Favorite;
+use App\Models\Block;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -69,5 +70,9 @@ class User extends Authenticatable implements JWTSubject
     public function favorites()
     {
         return $this->belongsToMany(Favorite::class);
+    }
+
+    public function blockList(){
+        return $this->hasMany(Block::class);
     }
 }
