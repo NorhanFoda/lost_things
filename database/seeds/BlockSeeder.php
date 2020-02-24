@@ -15,9 +15,11 @@ class BlockSeeder extends Seeder
         DB::table('blocks')->insert([
             [
                 'user_id' => 2,
+                'blocked_id' => 3,
             ],
             [
                 'user_id' => 4,
+                'blocked_id' => 2,
             ],
         ]);
     }

@@ -38,7 +38,10 @@ Route::group([
     });
 
     //Edit profile
-    Route::apiResource('user', 'api\EditProfileController');
+    Route::get('get_user_profile/{id}', 'api\EditProfileController@getUserProfile');
+    Route::get('get_old_email', 'api\EditProfileController@getOldEmail');
+    Route::post('change_email', 'api\ChangeEmail@changeEmail');
+    Route::post('verify_email/{token}', 'api\ChangeEmail@verifyEmail');
 
 });
 
