@@ -11,15 +11,15 @@ class ChangeEmailMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $code;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($code)
     {
-        $this->token = $token;
+        $this->code = $code;
     }
 
     /**
@@ -29,6 +29,6 @@ class ChangeEmailMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('Email.changeEmail')->with($this->token);
+        return $this->markdown('Email.changeEmail')->with($this->code);
     }
 }

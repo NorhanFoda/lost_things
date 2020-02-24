@@ -28,31 +28,32 @@ class ChangeEmail extends Controller
     }
 
     public function send($old_email,$new_email){
-        $token = $this->createToken($old_email, $new_email);
+        // $token = $this->createToken($old_email, $new_email);
+        $code = rand ( 1000 , 9999 );
         User::where('email', $old_email)->first()->update(['email'=> $new_email]);
-        Mail::to($new_email)->send(new ChangeEmailMail($token));
+        Mail::to($new_email)->send(new ChangeEmailMail($code));
     }
 
-    public function createToken($old_email, $new_email){
+    // public function createToken($old_email, $new_email){
 
-        $oldToken = DB::table('password_resets')->where('email', $old_email)->first();
+    //     $oldToken = DB::table('password_resets')->where('email', $old_email)->first();
 
-        if($oldToken){
-            return $oldToken;
-        }
+    //     if($oldToken){
+    //         return $oldToken;
+    //     }
 
-        $token = str_random(60);
-        $this->saveToken($token, $new_email);
-        return $token;
-    }
+    //     $token = str_random(60);
+    //     $this->saveToken($token, $new_email);
+    //     return $token;
+    // }
 
-    public function saveToken($token, $email){
-        DB::table('password_resets')->insert([
-            'email' => $email,
-            'token' => $token,
-            'created_at' => Carbon::now()
-        ]);
-    }
+    // public function saveToken($token, $email){
+    //     DB::table('password_resets')->insert([
+    //         'email' => $email,
+    //         'token' => $token,
+    //         'created_at' => Carbon::now()
+    //     ]);
+    // }
 
     public function verifyEmail($token){
         return $token;

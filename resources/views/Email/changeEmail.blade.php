@@ -4,7 +4,7 @@
 The body of your message.
 
 @component('mail::button', ['url' => ''])
-your token is {{$token}}
+Your verification code is: {{$code}}
 @endcomponent
 
 Thanks,<br>
