@@ -1,13 +1,12 @@
 @component('mail::message')
-# Introduction
+تطبيق مفقودات
 
-كود التفعيل الخاص بك هو
-<h2>{{$code}}</h2>
+من فضلك قم بادخال كود التفعيل فى التطبيق لاكمال عملية التسجيل
 
-{{-- @component('mail::button', ['url' => ''])
-Button Tex
-@endcomponent --}}
+@component('mail::button', ['url' => ''])
+كود التفعيل الخاص بك هو: {{$code}}
+@endcomponent
 
 شكرا<br>
-{{ config('app.name') }}
+{{-- {{ config('app.name') }} --}}
 @endcomponent

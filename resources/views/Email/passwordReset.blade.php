@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+تطبيق مفقودات
 
 قم بالضغط على الزر لاعادة تعيين كلمة مرور جديده
 
@@ -9,5 +9,5 @@
 @endcomponent
 
 شكرا<br>
-{{ config('app.name') }}
+{{-- {{ config('app.name') }} --}}
 @endcomponent
