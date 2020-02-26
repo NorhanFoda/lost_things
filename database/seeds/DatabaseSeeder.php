@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ConditionSeeder::class);
         $this->call(CommentSeeder::class);
         $this->call(ImageSeeder::class);
+        $this->call(LangSeeder::class);
     }
 }

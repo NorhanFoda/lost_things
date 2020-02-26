@@ -1,11 +1,10 @@
 @component('mail::message')
 تطبيق مفقودات
 
-قم بالضغط على الزر لاعادة تعيين كلمة مرور جديده
+من فضلك قم بادخال كود التفعيل فى التطبيق لتعيين كلمة مرور جديده
 
 @component('mail::button', ['url' => ''])
-{{-- @component('mail::button', ['url' => 'path to forn end page?token='.$token]) --}}
-تعيين كلمة مرور جديده
+كود التفعيل الخاص بك هو: {{$code}}
 @endcomponent
 
 شكرا<br>

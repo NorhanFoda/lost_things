@@ -18,8 +18,10 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
+            $table->string('place')->nullable();
             $table->boolean('found')->default(0); // default is not found
             $table->bigInteger('category_id')->nullable();
+            $table->date('published_at')->nullable();
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->timestamps();
         });

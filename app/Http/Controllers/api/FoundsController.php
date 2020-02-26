@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Http\Resources\FoundResource;
 use App\Http\Resources\FoundResourceCollection;
 use App\Http\Requests\FoundRequest;
+use Carbon\Carbon;
 
 class FoundsController extends Controller
 {
@@ -44,7 +45,8 @@ class FoundsController extends Controller
      */
     public function store(FoundRequest $request)
     {
-        Post::create($request->all());
+        $post = Post::create($request->all());
+        $post->update(['published_at' => Carbon::now()]);
 
         return response()->json([
             'data' => 'Post created'

@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendVerificationCode;
+use App\Http\requests\PhoneSignUpRequest;
+use App\Http\requests\EmailSignUpRequest;
 use App\User;
 
 class AuthController extends Controller
@@ -19,11 +21,12 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signup', 'verify', 'resendCode'
+        $this->middleware('auth:api', ['except' => ['login', 'signup', 'verify', 'resendCode',
+            'signupPhone', 'loginPhone'
         ]]);
     }
 
-    public function signup(Request $request){
+    public function signup(EmailSignUpRequest $request){
 
         $code = $this->createVerificationCode();
         $user = User::create([
@@ -35,6 +38,27 @@ class AuthController extends Controller
 
         //send email with activation code
         $this->sendEmail($user->email, $code);
+    }
+
+    public function signupPhone(PhoneSignUpRequest $request){
+        $user = User::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password),
+            'is_verified' => 1
+        ]);
+        return $this->loginPhone($request);
+    }
+
+    public function loginPhone(Request $request)
+    {
+        $credentials = $request->only('phone', 'password');
+        // dd($credentials);
+        if ($token = $this->guard()->attempt($credentials)) {
+            return $this->respondWithToken($token);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     public function sendEmail($email, $code){
@@ -63,7 +87,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);

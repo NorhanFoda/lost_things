@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class FoundResource extends JsonResource
 {
@@ -19,6 +20,7 @@ class FoundResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'published_at' => $this->created_at,
+            'published_sence' => $this->created_at->diffForHumans(Carbon::now()),
             'location' => $this->location,
             'category' => $this->category_id,
             'user' => $this->user_id,

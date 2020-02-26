@@ -24,8 +24,9 @@ class ResetPasswordController extends Controller
 
     public function send($email){
 
+        $code = rand ( 1000 , 9999 );
         $token = $this->createToken($email);
-        Mail::to($email)->send(new ResetPasswordMail($token));
+        Mail::to($email)->send(new ResetPasswordMail($token, $code));
     }
 
     public function createToken($email){

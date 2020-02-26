@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class LostResourceCollection extends JsonResource
 {
@@ -20,6 +21,7 @@ class LostResourceCollection extends JsonResource
             'description' => $this->description,
             'image' => $this->images,
             'published_at' => $this->created_at,
+            'published_sence' => $this->created_at->diffForHumans(Carbon::now()),
             'show_details' => route('losts.show', $this->id)
         ];
     }

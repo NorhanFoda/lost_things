@@ -10,6 +10,7 @@ use App\Http\Resources\LostResource;
 use App\Http\Resources\LostResourceCollection;
 use App\Http\Requests\LostRequest;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class LostsController extends Controller
 {
@@ -62,10 +63,12 @@ class LostsController extends Controller
             'description' => $request->description,
             'location' => $request->location,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'published_at' => date("Y-m-d", strtotime(Carbon::now())),
         ]);
 
         foreach($request->images as $image){
+            //Validate image
             $image_to_validate = array('image' => $image);
             $imageValidator = Validator::make($image_to_validate, $imageRules);
             if ($imageValidator->fails()) {

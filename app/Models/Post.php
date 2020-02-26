@@ -9,8 +9,8 @@ use App\Models\Image;
 
 class Post extends Model
 {
-    protected $fillable = [ 'title', 'description', 'location', 
-    'found', 'category_id', 'user_id'];
+    protected $fillable = [ 'title', 'description', 'location', 'place',
+    'found', 'category_id', 'user_id', 'published_at'];
 
     public function user(){
         return $this->belongsTo(User::class);
