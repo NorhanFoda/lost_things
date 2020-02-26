@@ -10,6 +10,11 @@ use App\Http\Resources\LostResourceCollection;
 
 class SearchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    
     public function search(Request $request){
         //type 1: search in 1 column
         //type 2: search in 2 column

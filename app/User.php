@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Favorite;
 use App\Models\Block;
 use App\Models\Comment;
+use App\Models\Message;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -81,5 +82,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+    public function messages(){
+        return $this->hasMany(Message::class);
     }
 }

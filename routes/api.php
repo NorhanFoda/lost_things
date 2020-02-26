@@ -64,6 +64,9 @@ Route::group([
     //Search
     Route::post('search', 'api\SearchController@search');
 
+    //Chat
+    Route::get('fetch_messages', 'api\ChatController@fetchMessages');
+    Route::post('send_messages', 'api\ChatController@sendMessages');
 
 });
 

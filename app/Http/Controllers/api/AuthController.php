@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendVerificationCode;
-use App\Http\requests\PhoneSignUpRequest;
-use App\Http\requests\EmailSignUpRequest;
+use App\Http\Requests\PhoneSignUpRequest;
+use App\Http\Requests\EmailSignUpRequest;
 use App\User;
 
 class AuthController extends Controller
@@ -37,7 +37,7 @@ class AuthController extends Controller
         ]);
 
         //send email with activation code
-        $this->sendEmail($user->email, $code);
+        return $this->sendEmail($user->email, $code);
     }
 
     public function signupPhone(PhoneSignUpRequest $request){
@@ -52,6 +52,13 @@ class AuthController extends Controller
 
     public function loginPhone(Request $request)
     {
+        //user is not verified so he can not login
+        if(User::where('phone', $request->phone)->first()->is_verified == 0){
+            return response()->json([
+                'error' => "this account is not verified"
+            ], 400);
+        }
+        
         $credentials = $request->only('phone', 'password');
         // dd($credentials);
         if ($token = $this->guard()->attempt($credentials)) {
@@ -87,6 +94,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        //user is not verified so he can not login
+        if(User::where('phone', $request->phone)->first()->is_verified == 0){
+            return response()->json([
+                'error' => "this account is not verified"
+            ], 400);
+        }
+        
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
@@ -165,7 +179,9 @@ class AuthController extends Controller
             if($user_code == $code){
                 $user->is_verified = 1; 
                 $user->save();
-                return $this->login($request);
+                return response()->json([
+                    'data' => $this->login($request)
+                ], 200);
             }
         }
         return response()->json([
