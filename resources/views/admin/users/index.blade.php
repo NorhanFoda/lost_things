@@ -59,15 +59,20 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email ? $user->email : trans('admin.nodata')}}</td>
                                         <td>{{$user->phone ? $user->phone : trans('admin.nodata')}}</td>
-                                        <td>{{$user->is_verified ? trans('admin.active') : trans('unactive')}}</td>
-                                        <td><img src="{{asset($user->image ? asset($user->image) : 'uploads/avatar.png')}}" alt="user" style="width:200px; height:100px"></td>
-                                        {{-- @if(auth()->id()) --}}
                                         <td>
-                                            link 
-                                            {{-- <a @if($user-> is_active == 0 ) title="unban" @else title="ban" @endif onclick="return true;" id="confirm-color" object_id='{{$user->id}}' object_status='{{$user->is_active}}'  class="ban-unlock"> --}}
-                                                {{-- @if($user->is_active == 1)<i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a> --}}
+                                            <a @if($user->is_blockded == 0 ) title="unban" @else title="ban" @endif onclick="return true;" id="confirm-color" object_id='{{$user->id}}' object_status='{{$user->is_blocked}}'  class="ban-unlock">
+                                                @if($user->is_blocked == 1)<i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a>
                                         </td>
-                                        {{-- @endif --}}
+                                        <td><img src="{{asset($user->image ? asset($user->image) : 'uploads/avatar.png')}}" alt="user" style="width:200px; height:100px"></td>
+                                        <td>
+                                            <a href="{{route('users.show', $user->id)}}">show</a>
+                                            <a href="{{route('users.edit', $user->id)}}">edit</a>
+                                            <form action="{{route('users.destroy', $user->id)}}">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                                <button type="submit">delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -91,10 +96,8 @@
 
 
 
-{{-- @section('scripts')
+@section('scripts')
     <script>
-
-
         $(document).on('click', '.ban-unlock', function (e) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -107,8 +110,8 @@
                 title: '{{trans('sweet_alert.title')}}',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: '{{trans('sweet_alert.yes')}}',
-                cancelButtonText: '{{trans('sweet_alert.no')}}',
+                confirmButtonText: '{{trans('admin.yes')}}',
+                cancelButtonText: '{{trans('admin.no')}}',
             }).then((result) => {
                 if (result.value) {
                     $.ajaxSetup({
@@ -128,41 +131,23 @@
                         } ,
                         dataType: 'json',
                         success: function(response) {
-
                             if (response === 'ban') {
                                 Swal.fire({
                                     type: 'success',
                                     title: '{{trans('sweet_alert.banned')}}',
                                     showConfirmButton: false,
                                     timer: 1500
-
-
-
                                 })
                                 window.location.reload();
-
                             } else if (response === 'unban') {
                                 Swal.fire({
                                     type: 'success',
                                     title: '{{trans('sweet_alert.unbanned')}}',
                                     showConfirmButton: false,
                                     timer: 1500
-
-
                                 })
                                 window.location.reload();
-
-
-
-
-
-
-
-
-
                             }
-
-
                         }
                     });
                 } else if (
@@ -174,11 +159,9 @@
                         showConfirmButton: false,
                         timer: 1000
                     });
-
                 }
             })
         });
-
-
-
     </script>
+
+@endsection

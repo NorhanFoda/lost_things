@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Http\Requests\UserRequest;
 use Auth;
 
 class UserController extends Controller
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index')->with('users', User::where('is_admin', '!=', '1'));
+        return view('admin.users.index')->with('users', User::where('is_admin', '!=', '1')->get());
     }
 
     /**
@@ -30,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -39,9 +40,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::create($request->all());
+        session()->flash('success', 'user added');
+        return redirect('users');
     }
 
     /**
@@ -52,7 +55,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::with(['posts', 'favorites', 'blockList'])->where('id', $id)->first();
     }
 
     /**
@@ -63,7 +66,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.users.edit')->with('user', User::find($id));
     }
 
     /**
@@ -73,9 +76,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        User::find($id)->update($request->all());
+        session()->flash('success', 'user updated');
+        return redirect('users');
     }
 
     /**
@@ -86,6 +91,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        session()->flash('success', 'user updated');
+        return redirect('users');
     }
 }
