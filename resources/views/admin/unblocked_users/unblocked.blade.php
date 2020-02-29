@@ -69,7 +69,7 @@
                                         <td>
                                             <a href="{{route('users.show', $user->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             <a href="{{route('users.edit', $user->id)}}" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <form action="{{route('users.destroy', $user->id)}}" method="POST" style="display:inline-block">
+                                            <form action="{{route('users.destroy', $user->id)}}" style="display:inline-block">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>

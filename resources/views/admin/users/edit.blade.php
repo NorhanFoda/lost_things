@@ -36,7 +36,8 @@
                     <div class="card-body">
                         {{-- @include('alert') --}}
                         <form class="form form-horizontal needs-validation" novalidate method="post" enctype="multipart/form-data" action="{{route('users.update', $user->id)}}">
-                            {{method_field('PATCH')}} {{csrf_field()}}
+                            {{csrf_field()}}
+                            {{method_field('PUT')}}
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -59,7 +60,7 @@
                                                 <span>{{trans('admin.email')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="email" class="form-control" placeholder="{{trans('admin.email')}}" name="email" value="{{$user->email}}">
+                                                <input type="email" class="form-control" placeholder="{{trans('admin.email')}}" value="{{$user->email}}" name="email">
                                                 <div class="invalid-feedback">
                                                     {{trans('admin.please_enter_email_or_phone')}}
                                                 </div>
@@ -73,7 +74,7 @@
                                                 <span>{{trans('admin.phone')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" placeholder="{{trans('admin.phone')}}" name="phone" value="{{$user->phone}}" minlength="10" maxlength="14" required>
+                                                <input type="number" class="form-control" placeholder="{{trans('admin.phone')}}" value="{{$user->phone}}" name="phone" minlength="10" maxlength="14">
                                                 <div class="invalid-feedback">
                                                     {{trans('admin.please_enter_phone_or_email')}}
                                                 </div>
@@ -88,6 +89,9 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="tel" class="form-control" placeholder="{{trans('admin.password')}}" minlength="6" name="password">
+                                                <div class="invalid-feedback">
+                                                    {{trans('admin.please_enter_password')}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,6 +103,9 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="tel" class="form-control" placeholder="{{trans('admin.password_confirmation')}}" name="password_confirmation">
+                                                <div class="invalid-feedback">
+                                                    {{trans('admin.please_enter_password_confirmation')}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +122,7 @@
                                     </div>
 
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">{{trans('admin.edit')}}</button>
+                                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">{{trans('admin.save')}}</button>
                                     </div>
                                 </div>
                             </div>

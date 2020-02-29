@@ -21,6 +21,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	{
 		return view('welcome');
 	});
-    
-    Route::resource('users', 'dashboard\UserController');
+	
+	//Users
+	Route::resource('users', 'dashboard\UserController');
+	Route::post('block', 'dashboard\UserController@blockUser')->name('users.block');
+	Route::get('get_blocked_users', 'dashboard\UserController@getBlockedUsers')->name('users.blockList');
+	// ROute::get('get_unblocked_users', 'dashboard\UserController@getUnblockedUsers')->name('users.unblockList');
+
+	//losts
+	Route::resource('losts', 'dashboard\LostController');
 });

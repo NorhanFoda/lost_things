@@ -15,12 +15,14 @@
             <li class=" nav-item"><a href="{{route('users.index')}}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{trans('admin.users')}}</span></a>
             </li>
 
-            <li class=" nav-item"><a href="#"><i class="fa fa-question"></i><span class="menu-title" data-i18n="Email">{{trans('admin.block_list')}}</span></a>
+            <li class=" nav-item"><a href="{{route('users.blockList')}}"><i class="fa fa-question"></i><span class="menu-title" data-i18n="Email">{{trans('admin.block_list')}}</span></a>
             </li>
 
-            <li class=" nav-item"><a href="#"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.active_users')}}</span></a>
+            <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.losts')}}</span></a>
+            <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
+            {{-- <li class=" nav-item"><a href="{{route('users.unblockList')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.active_users')}}</span></a> --}}
 
-            <li class=" nav-item"><a href="#"><i class="fa fa-shirtsinbulk"></i><span class="menu-title" data-i18n="Email">{{trans('admin.unactive_users')}}</span></a>
+            {{-- <li class=" nav-item"><a href="#"><i class="fa fa-shirtsinbulk"></i><span class="menu-title" data-i18n="Email">{{trans('admin.unactive_users')}}</span></a> --}}
 
             {{-- <li class=" nav-item"><a href="{{route('countries-cities.index')}}"><i class="fa fa-flag"></i><span class="menu-title" data-i18n="Email">{{trans('admin_sidebar.countries_cities')}}</span></a>
 

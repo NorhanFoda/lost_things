@@ -6,7 +6,7 @@
 @endsection
 
 @section('pageSubTitle') 
-{{trans('admin.users')}}
+{{trans('admin.losts')}}
 @endsection
 
 @section('content')
@@ -15,18 +15,18 @@
 
     <div class="row" style="display:block">
 
-
+`
         <div class="row breadcrumbs-top">
             <div class="col-12">
                 <h2 class="content-header-title float-left mb-0">
-                    {{trans('admin.users')}}
+                    {{trans('admin.posts')}}
                 </h2>
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="#">{{trans('admin_content.main')}}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{trans('admin.users')}}
+                        <li class="breadcrumb-item active">{{trans('admin.losts')}}
                         </li>
                     </ol>
                 </div>
@@ -39,37 +39,34 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <a href="{{route('users.create')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_user')}} </a>
+                            <a href="{{route('losts.create')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>
                             <table class="table table-bordered mb-0">
                                 <thead>
                                 <tr align="center">
                                     <th>#</th>
-                                    <th>{{trans('admin.name')}}</th>
-                                    <th>{{trans('admin.email')}}</th>
-                                    <th>{{trans('admin.phone')}}</th>
-                                    <th>{{trans('admin.status')}}</th>
+                                    <th>{{trans('admin.title')}}</th>
+                                    <th>{{trans('admin.user')}}</th>
+                                    <th>{{trans('admin.location')}}</th>
+                                    <th>{{trans('admin.published_at')}}</th>
                                     <th>{{trans('admin.image')}}</th>
                                     <th>{{trans('admin.action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($users as $user)
+                                @foreach($losts as $lost)
                                     <tr align="center">
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email ? $user->email : trans('admin.nodata')}}</td>
-                                        <td>{{$user->phone ? $user->phone : trans('admin.nodata')}}</td>
+                                        <td>{{$lost->title}}</td>
+                                        <td>{{$lost->user->name}}</td>
+                                        <td>{{$lost->location}}</td>
+                                        <td>{{$lost->published_at}}</td>
                                         <td>
-                                            <a @if($user->is_blockded == 0 ) title="Unblock" @else title="Block" @endif onclick="return true;" id="confirm-color" object_id='{{$user->id}}' object_status='{{$user->is_blocked}}'  class="ban-unlock">
-                                                @if($user->is_blocked == 1)<i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a>
+                                            {{-- <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px"> --}}
                                         </td>
                                         <td>
-                                            <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
-                                        </td>
-                                        <td>
-                                            <a href="{{route('users.show', $user->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="{{route('users.edit', $user->id)}}" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <form action="{{route('users.destroy', $user->id)}}" method="POST" style="display:inline-block">
+                                            <a href="{{route('losts.show', $lost->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{route('losts.edit', $lost->id)}}" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
