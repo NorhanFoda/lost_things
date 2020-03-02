@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Post;
+use Auth;
 
 class AdminHomeController extends Controller
 {
+    public function __construct(){
+        // $this->middleware('auth:web');
+        // Auth::guard('web');
+    }
     public function index(){
         $posts = count(Post::all());
         $losts = count(Post::where('found', 0)->get());

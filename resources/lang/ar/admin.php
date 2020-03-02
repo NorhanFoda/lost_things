@@ -32,6 +32,9 @@ return [
     'nodata' => 'غير مسجل',
     'password' => 'كلمة المرور',
     'password_confirmation' => 'تأكيد كلمة المرور',
+    'edit_profile' => 'تعديل الملف الشخصى',
+    'logout' => 'تسجيل الخروج',
+    'welcome' => 'مرحبا',
 
     //posts translations
     'posts' => 'المنشورات',

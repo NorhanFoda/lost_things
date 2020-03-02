@@ -24,6 +24,7 @@ Route::group([
     //Favorites
     Route::post('add_to_favorites', 'api\FavoritesController@addToFavorites');
     Route::post('remove_from_favorites', 'api\FavoritesController@removeFromFavories');
+    Route::get('get_favorites/{id}', 'api\FavoritesController@getFavorites');
 
     //Comments link
     Route::group(['prefix' => 'posts'], function(){

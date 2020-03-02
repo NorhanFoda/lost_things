@@ -12,16 +12,16 @@
                         @else
                             <a class="dropdown-toggle nav-link" id="dropdown-flag"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
                         @endif
-                        {{-- <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            @if(app()->getLocale() == 'ar')<a class="dropdown-item" href="{{route('change_locale','en')}}" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a>
-                            @else <a class="dropdown-item" href="{{route('change_locale','ar')}}" data-language="ar"><i class="flag-icon flag-icon-sa"></i> العربية</a>
-                            @endif
-                        </div> --}}
                         <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                            @if(app()->getLocale() == 'ar')<a class="dropdown-item" href="{{route('change_locale','en')}}" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a>
+                            @else @if(app()->getLocale() == 'en')<a class="dropdown-item" href="{{route('change_locale','ar')}}" data-language="ar"><i class="flag-icon flag-icon-sa"></i> العربية</a>@endif
+                            @endif
+                        </div>
+                        {{-- <div class="dropdown-menu" aria-labelledby="dropdown-flag">
                             @if(app()->getLocale() == 'ar')<a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a>
                             @else <a class="dropdown-item" href="#" data-language="ar"><i class="flag-icon flag-icon-sa"></i> العربية</a>
                             @endif
-                        </div>
+                        </div> --}}
                     </li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
@@ -84,11 +84,20 @@
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            {{-- <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">({{auth()->user()->name}})</span></div><span> --}}
-                                {{-- <img class="round" src="{{asset(Auth::user()->image ? Auth::user()->image : 'uploads/avatar.png')}}" alt="avatar" height="40" width="40"></span> --}}
+                            <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{auth()->user()->name}}</span></div><span>
+                                <img class="round" src="{{Auth::user()->image ? Auth::user()->image : 'images/avatar.png'}}" alt="avatar" height="40" width="40"></span>
                         </a>
-                        {{-- <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('users.edit', auth()->id())}}"><i class="feather icon-user"></i> {{trans('admin_content.edit_profile')}}</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="feather icon-power"></i> {{trans('admin_content.logout')}}</a> --}}
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('users.edit', auth()->id())}}"><i class="feather icon-user"></i> {{trans('admin.edit_profile')}}</a>
+                            <div class="dropdown-divider">
+                            </div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                <i class="feather icon-power"></i>{{trans('admin.logout')}}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul>

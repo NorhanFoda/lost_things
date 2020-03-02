@@ -31,6 +31,9 @@ return [
     'nodata' => 'Not registeres',
     'password' => 'Password',
     'password_confirmation' => 'Password confirmation',
+    'edit_profile' => 'Edit profile',
+    'logout' => 'Logout',
+    'welcome' => 'Welcome',
 
     //posts translations
     'posts' => 'Posts',

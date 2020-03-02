@@ -12,15 +12,17 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="{{route('users.index')}}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{trans('admin.users')}}</span></a>
+            <li class=" nav-item"><a href="/"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{trans('admin.main')}}</span></a>
+            </li>
+            <li class=" nav-item"><a href="{{route('users.index')}}"><i class="fa fa-user"></i><span class="menu-title" data-i18n="Dashboard">{{trans('admin.users')}}</span></a>
             </li>
 
-            <li class=" nav-item"><a href="{{route('users.blockList')}}"><i class="fa fa-question"></i><span class="menu-title" data-i18n="Email">{{trans('admin.block_list')}}</span></a>
+            <li class=" nav-item"><a href="{{route('users.blockList')}}"><i class="fa fa-ban"></i><span class="menu-title" data-i18n="Email">{{trans('admin.block_list')}}</span></a>
             </li>
 
-            <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.losts')}}</span></a>
-            <li class=" nav-item"><a href="{{route('founds.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
-            <li class=" nav-item"><a href="{{route('conditions.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.conditions_and_rules')}}</span></a>
+            <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-align-right"></i><span class="menu-title" data-i18n="Email">{{trans('admin.losts')}}</span></a>
+            <li class=" nav-item"><a href="{{route('founds.index')}}"><i class="fa fa-align-right"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
+            <li class=" nav-item"><a href="{{route('conditions.index')}}"><i class="fa fa-gavel"></i><span class="menu-title" data-i18n="Email">{{trans('admin.conditions_and_rules')}}</span></a>
 
             {{-- <li class=" nav-item"><a href="#"><i class="fa fa-shirtsinbulk"></i><span class="menu-title" data-i18n="Email">{{trans('admin.unactive_users')}}</span></a> --}}
 

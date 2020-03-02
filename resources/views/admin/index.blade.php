@@ -29,7 +29,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            {{-- <h1 class="mb-2 text-white">{{trans('admin.welcome') . ' ' . auth()->user()->name}}</h1> --}}
+                                            <h1 class="mb-2 text-white">{{trans('admin.welcome') . ' ' . auth()->user()->name}}</h1>
                                             <p class="m-auto w-75"></p>
                                         </div>
                                     </div>
