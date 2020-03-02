@@ -24,7 +24,7 @@
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">{{trans('admin_content.main')}}</a>
+                            <a href="/">{{trans('admin.main')}}</a>
                         </li>
                         <li class="breadcrumb-item active">{{trans('admin.losts')}}
                         </li>
@@ -33,6 +33,12 @@
             </div>
         </div>
 
+        {{-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> --}}
 
         <div class="col-12">
             <div class="card">
@@ -61,16 +67,18 @@
                                         <td>{{$lost->location}}</td>
                                         <td>{{$lost->published_at}}</td>
                                         <td>
-                                            {{-- <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px"> --}}
+                                            <img @if(count($lost->images) > 0) src={{$lost->images[0]->path}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
                                         </td>
                                         <td>
-                                            <a href="{{route('losts.show', $lost->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="{{route('losts.edit', $lost->id)}}" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">
+                                            {{-- <a href="{{route('losts.show', $lost->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
+                                            <a href="{{route('losts.edit', $lost->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$lost->id}}'
+                                                class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            {{-- <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -97,7 +105,8 @@
 
 @section('scripts')
     <script>
-        $(document).on('click', '.ban-unlock', function (e) {
+        //delete users
+        $(document).on('click', '.delete', function (e) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'swal2-confirm',
@@ -122,29 +131,29 @@
                     var status = $(this).attr('object_status');
                         token = $('meta[name="csrf-token"]').attr('content');
                         $.ajax({
-                            url: "{{route('users.block')}}",
-                            type: "POST",
+                            url: "{{route('losts.delete')}}",
+                            type: "post",
                             dataType: 'json',
-                            data: {"_token": "{{ csrf_token() }}", id: id, status: status },
+                            data: {"_token": "{{ csrf_token() }}", id: id},
                             success: function(data){
                                 if(data.data == 1){
                                     Swal.fire({
                                         type: 'success',
-                                        title: '{{trans('admin.user_blocked')}}',
+                                        title: '{{trans('admin.post_deleted')}}',
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
                                     window.location.reload(); 
                                 }
-                                else if(data.data == 0){
-                                    Swal.fire({
-                                        type: 'success',
-                                        title: '{{trans('admin.user_unblocked')}}',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    window.location.reload(); 
-                                }
+                                // else if(data.data == 0){
+                                //     Swal.fire({
+                                //         type: 'success',
+                                //         title: '{{trans('admin.user_unblocked')}}',
+                                //         showConfirmButton: false,
+                                //         timer: 1500
+                                //     });
+                                //     window.location.reload(); 
+                                // }
                             }
                         });
                 } else if (

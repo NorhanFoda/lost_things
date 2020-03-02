@@ -18,7 +18,8 @@
                 <h2 class="content-header-title float-left mb-0">{{trans('admin.users')}}</h2>
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">{{trans('admin_content.main')}}</a>
+                        <li class="breadcrumb-item">
+                            <a href="/">{{trans('admin.main')}}</a>
                         </li>
                         <li class="breadcrumb-item active">{{trans('admin.add_user')}}
                         </li>

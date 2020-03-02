@@ -1,7 +1,16 @@
 <?php
 return [
+    //login
+    'login' => 'تسجيل الدخول',
+    'remember' => 'تذكرنى',
+    'forget' => 'نسيت كلمة المرور؟',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
     //title
     'lost_app' => 'مفقودات',
+    'main' => 'الصفحه الرئيسية',
     //sidebar
     'users' => 'المستخدمين',
     'losts' => 'المفقودات',
@@ -9,7 +18,7 @@ return [
     'block_list' => 'المستخدمين المحظورين',
     'active_users' => 'المستخدمين المفعلين',
     'unactive_users' => 'المستخدمين غير المفعلين',
-    'losts' => 'المفقودات',
+    'conditions_and_rules' => 'الشروط و الاحكام',
 
     //user translation
     'name' => 'الاسم',
@@ -26,10 +35,23 @@ return [
 
     //posts translations
     'posts' => 'المنشورات',
-    'title' => 'العنوان',
+    'title' => 'عنوان المنشور',
     'user' => 'المتستخدم',
     'location' => 'الموقع',
     'published_at' => 'تاريخ النشر',
+    'category' => 'النوع',
+    'description' => 'الوصف',
+    'place' => 'المكان',
+
+    //conditions and rules
+    'text' => 'النص',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
 
     //Actions
     'add_user' => 'اضافة مستخدم',
@@ -38,7 +60,8 @@ return [
     'edit' => 'تعديل',
     'save' => 'حفظ',
     'add_post' => 'اضافة منشور',
-    '' => '',
+    'edit_post' => 'تعديل المنشور',
+    'add_condition' => 'اضافة شروط',
     '' => '',
     '' => '',
     '' => '',
@@ -55,12 +78,29 @@ return [
     'user_blocked' => 'تم حظر المستخدم',
     'user_unblocked' => 'تم الغاء حظر المستخدم',
     'alert_cancelled' => 'تم الالغاء',
+    'please_enter_title' => 'من فضلك ادخل عنوان المنشور',
+    'please_enter_category' => 'من فضلك اختر النوع',
+    'please_enter_description' => 'من فضلك ادخل الوصف',
+    'please_enter_location' => 'من فضلك ادخل الموقع',
+    'please_enter_place' => ' من فضلك ادخل المكان',
+    'please_enter_image' => 'من فضلك ادخل صوره واحده على الاقل',
+    'user_updated' => 'تم تعديل المستخدم بنجاح',
+    'user_created' => 'تمت اضافة المستخدم بنجاح',
+    'post_created' => 'تم انشاء المنشور بنجاح',
+    'post_updated' => 'تم تعديل المنشور بنجاح',
+    'max_images' => 'لقد تجاوزت الحد المسموح به للصور',
+    'please_enter_text' => 'من فضلك ادخل نص الشرط',
+    'condition_added' => 'تمت اضافة الشرط بنجاح',
+    'condition_updated' => 'تم تعديل الشرط بنجاح',
+    'condition_deleted' => 'تم حذف الشرط',
+    '' => '',
+    '' => '',
     //alert
     'alert_title' => 'هل انت متأكد؟',
     'yes' => 'نعم',
     'no' => 'لا',
-    '' => '',
-    '' => '',
+    'user_deleted' => 'تم حذف المستخدم',
+    'post_deleted' => 'تم حذف المنشور',
     '' => '',
     '' => '',
     '' => '',

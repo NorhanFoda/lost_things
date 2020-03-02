@@ -1,7 +1,15 @@
 <?php
 return [
+    //login
+    'login' => 'Login',
+    'remember' => 'ٌRemember me',
+    'forget' => 'Forgot password?',
+    '' => '',
+    '' => '',
+    '' => '',
     //title
     'lost_app' => 'Lost things',
+    'main' => 'Main page',
     //sidebar
     'users' => 'All users',
     'losts' => 'Lost things',
@@ -9,7 +17,7 @@ return [
     'block_list' => 'BLock list',
     'active_users' => 'Active users',
     'unactive_users' => 'Un active users',
-    'losts' => 'Losts',
+    'conditions_and_rules' => 'Conditions and rules',
 
     //users translation
     'name' => 'Name',
@@ -26,13 +34,15 @@ return [
 
     //posts translations
     'posts' => 'Posts',
-    'title' => 'Title',
+    'title' => 'Post title',
     'user' => 'User',
     'location' => 'Location',
     'published_at' => 'Published at',
-    '' => '',
-    '' => '',
-    '' => '',
+    'category' => 'Category',
+    'description' => 'Description',
+    'place' => 'Place',
+    //conditions and rules
+    'text' => 'Text',
     '' => '',
     '' => '',
     '' => '',
@@ -52,7 +62,8 @@ return [
     'edit' => 'Edit',
     'save' => 'Save',
     'add_post' => 'Add post',
-    '' => '',
+    'edit_post' => 'Edit post',
+    'add_condition' => 'Add Condition or rule',
     '' => '',
     '' => '',
     '' => '',
@@ -70,13 +81,31 @@ return [
     'user_blocked' => 'User Blocked',
     'user_unblocked' => 'User Unblocked',
     'alert_cancelled' => 'Cancelled',
+    'please_enter_title' => 'Please enter post title',
+    'please_enter_category' => 'Please select category',
+    'please_enter_description' => 'Please enter description',
+    'please_enter_location' => 'Please enter location',
+    'please_enter_place' => 'Please enter place',
+    'please_enter_image' => 'Please upload at least one image',
+    'user_updated' => 'User updated successfuly',
+    'user_created' => 'User created successfuly',
+    'post_created' => 'Post created successfuly',
+    'post_updated' => 'Post updated successfuly',
+    'max_images' => 'You have reached allowed max number of images',
+    'please_enter_text' => 'Please enter the text of the condition',
+    'condition_added' => 'Condition added successfuly',
+    'condition_updated' => 'Condition updated successfuly',
+    'condition_deleted' => 'Condition deleted',
+    '' => '',
+    '' => '',
+    '' => '',
 
     //alert
     'alert_title' => 'Are you sure?',
     'yes' => 'Yes',
     'no' => 'No',
-    '' => '',
-    '' => '',
+    'user_deleted' => 'User deleted',
+    'post_deleted' => 'Post deleted',
     '' => '',
     '' => '',
     '' => '',

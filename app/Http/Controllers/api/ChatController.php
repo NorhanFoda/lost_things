@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Message;
 
 class ChatController extends Controller
 {
@@ -32,5 +33,10 @@ class ChatController extends Controller
         return response()->json([
             'error' => 'Message required'
         ], 400);
+    }
+
+    public function deleteMessages($id){
+        Message::find($id)->delete();
+        return response()->json(null, 204);
     }
 }

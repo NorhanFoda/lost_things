@@ -30,7 +30,7 @@ class ChangeEmailController extends Controller
     public function send($old_email,$new_email){
         // $token = $this->createToken($old_email, $new_email);
         $code = rand ( 1000 , 9999 );
-        User::where('email', $old_email)->first()->update(['email'=> $new_email]);
+        User::where('email', $old_email)->first()->update(['email'=> $new_email, 'is_verified' => 0]);
         Mail::to($new_email)->send(new ChangeEmailMail($code));
     }
 

@@ -10,10 +10,7 @@ use Auth;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        Auth::guard('web');
-    }
+   
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index')->with('users', User::where('is_admin', '!=', '1')->get());
+        $users =  User::where('is_admin', '!=', '1')->get();
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -55,7 +53,8 @@ class UserController extends Controller
             $url = url('/images/'.$file_name_to_store);
             $user->update(['image' => $url]);
         }
-        session()->flash('success', 'user added');
+        $user->update(['password' => bcrypt($request->password)]);
+        session()->flash('message', trans('admin.user_created'));
         return redirect('users');
     }
 
@@ -67,8 +66,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return 'show';
-        // return User::with(['posts', 'favorites', 'blockList'])->where('id', $id)->first();
+        abort(404);
     }
 
     /**
@@ -107,8 +105,11 @@ class UserController extends Controller
             $user->update(['image' => $url]);
         }
 
-        $user->update(['password' => bcrypt($request->password)]);
-        session()->flash('success', 'user updated');
+        if($request->password != null){
+            $user->update(['password' => bcrypt($request->password)]);
+        }
+
+        session()->flash('message', trans('admin.user_updated'));
         return redirect('users');
     }
 
@@ -120,9 +121,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        session()->flash('success', 'user updated');
-        return redirect('users');
+        abort(404);
+    }
+
+    public function delete(Request $request){
+        if($request->ajax()){
+            User::find($request->id)->delete();
+            return response()->json([
+                'data' => 1,
+            ], 200);
+        }
     }
 
     public function blockUser(Request $request){

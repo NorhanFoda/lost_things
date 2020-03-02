@@ -67,6 +67,10 @@ Route::group([
     //Chat
     Route::get('fetch_messages', 'api\ChatController@fetchMessages');
     Route::post('send_messages', 'api\ChatController@sendMessages');
+    Route::delete('delete_messages/{id}', 'api\ChatController@deleteMessages');
+
+    //conditions and rules
+    Route::get('get_conditions', 'api\ConditionsController@getConditions');
 
 });
 

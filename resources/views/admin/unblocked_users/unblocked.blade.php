@@ -24,7 +24,7 @@
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">{{trans('admin_content.main')}}</a>
+                            <a href="/">{{trans('admin.main')}}</a>
                         </li>
                         <li class="breadcrumb-item active">{{trans('admin.users')}}
                         </li>

@@ -95,7 +95,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         //user is not verified so he can not login
-        if(User::where('phone', $request->phone)->first()->is_verified == 0){
+        if(User::where('email', $request->email)->first()->is_verified == 0){
             return response()->json([
                 'error' => "this account is not verified"
             ], 400);

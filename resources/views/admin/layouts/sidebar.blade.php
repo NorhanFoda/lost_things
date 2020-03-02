@@ -19,8 +19,8 @@
             </li>
 
             <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.losts')}}</span></a>
-            <li class=" nav-item"><a href="{{route('losts.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
-            {{-- <li class=" nav-item"><a href="{{route('users.unblockList')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.active_users')}}</span></a> --}}
+            <li class=" nav-item"><a href="{{route('founds.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
+            <li class=" nav-item"><a href="{{route('conditions.index')}}"><i class="fa fa-arrows"></i><span class="menu-title" data-i18n="Email">{{trans('admin.conditions_and_rules')}}</span></a>
 
             {{-- <li class=" nav-item"><a href="#"><i class="fa fa-shirtsinbulk"></i><span class="menu-title" data-i18n="Email">{{trans('admin.unactive_users')}}</span></a> --}}
 
