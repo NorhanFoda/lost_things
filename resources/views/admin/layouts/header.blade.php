@@ -17,11 +17,6 @@
                             @else @if(app()->getLocale() == 'en')<a class="dropdown-item" href="{{route('change_locale','ar')}}" data-language="ar"><i class="flag-icon flag-icon-sa"></i> العربية</a>@endif
                             @endif
                         </div>
-                        {{-- <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            @if(app()->getLocale() == 'ar')<a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a>
-                            @else <a class="dropdown-item" href="#" data-language="ar"><i class="flag-icon flag-icon-sa"></i> العربية</a>
-                            @endif
-                        </div> --}}
                     </li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>

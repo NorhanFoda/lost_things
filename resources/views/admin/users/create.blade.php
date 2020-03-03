@@ -48,6 +48,9 @@
                                             <div class="col-md-10">
                                                 <input type="text" class="form-control" placeholder="{{trans('admin.name')}}" name="name" required>
                                                 <div class="invalid-feedback">
+                                                    @error('name')
+                                                        {{$message}}
+                                                    @enderror
                                                     {{trans('admin.please_enter_name')}}
                                                 </div>
                                             </div>
@@ -62,6 +65,9 @@
                                             <div class="col-md-10">
                                                 <input type="email" class="form-control" placeholder="{{trans('admin.email')}}" name="email">
                                                 <div class="invalid-feedback">
+                                                    @error('email')
+                                                        {{$message}}
+                                                    @enderror
                                                     {{trans('admin.please_enter_email_or_phone')}}
                                                 </div>
                                             </div>
@@ -74,8 +80,11 @@
                                                 <span>{{trans('admin.phone')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" placeholder="{{trans('admin.phone')}}" name="phone" minlength="10" maxlength="14">
+                                                <input type="text" class="form-control" placeholder="{{trans('admin.phone')}}" name="phone">
                                                 <div class="invalid-feedback">
+                                                    @error('phone')
+                                                        {{$message}}
+                                                    @enderror
                                                     {{trans('admin.please_enter_phone_or_email')}}
                                                 </div>
                                             </div>
@@ -88,8 +97,11 @@
                                                 <span>{{trans('admin.password')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="tel" class="form-control" placeholder="{{trans('admin.password')}}" minlength="6" name="password" required>
+                                                <input type="password" class="form-control" placeholder="{{trans('admin.password')}}" minlength="6" name="password" required>
                                                 <div class="invalid-feedback">
+                                                    @error('password')
+                                                        {{$message}}
+                                                    @enderror
                                                     {{trans('admin.please_enter_password')}}
                                                 </div>
                                             </div>
@@ -102,8 +114,11 @@
                                                 <span>{{trans('admin.password_confirmation')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="tel" class="form-control" placeholder="{{trans('admin.password_confirmation')}}" name="password_confirmation" required>
+                                                <input type="password" class="form-control" placeholder="{{trans('admin.password_confirmation')}}" name="password_confirmation" required>
                                                 <div class="invalid-feedback">
+                                                    @error('password_confirmation')
+                                                        {{$message}}
+                                                    @enderror
                                                     {{trans('admin.please_enter_password_confirmation')}}
                                                 </div>
                                             </div>
@@ -117,6 +132,11 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="file" class="form-control" name="image" accept=".gif, .jpg, .png, .webp">
+                                                <div class="inavlid-feedback">
+                                                    @error('image')
+                                                        {{$message}}
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
