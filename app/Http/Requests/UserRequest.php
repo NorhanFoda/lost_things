@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required_if:phone,null',
-            'phone' => 'required_if:email,null',
+            'phone' => ['required_if:email,null','regex:/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/'],
             'password_confirmation' => 'required_if:password,!null',
             'password' => 'confirmed'
         ];

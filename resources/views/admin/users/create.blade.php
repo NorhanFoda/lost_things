@@ -28,6 +28,12 @@
             </div>
         </div>
 
+        <h1>
+            @error('phone')
+            {{$message}}
+        @enderror
+        </h1>
+
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -47,6 +53,9 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="text" class="form-control" placeholder="{{trans('admin.name')}}" name="name" required>
+                                                {{-- @foreach ($errors->all() as $error)
+                                                    <div class="invalid-feedback">{{ $error }}</div>
+                                                @endforeach  --}}
                                                 <div class="invalid-feedback">
                                                     @error('name')
                                                         {{$message}}
