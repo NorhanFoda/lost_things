@@ -34,6 +34,8 @@ return [
     'edit_profile' => 'Edit profile',
     'logout' => 'Logout',
     'welcome' => 'Welcome',
+    'account' => 'Account',
+    'birth_date' => 'Date fo birth',
 
     //posts translations
     'posts' => 'Posts',
@@ -44,6 +46,13 @@ return [
     'category' => 'Category',
     'description' => 'Description',
     'place' => 'Place',
+    'not_found' => 'Not found',
+    'found' => 'Found',
+    'comments' => 'Comments',
+    'no_comments' => 'No comments yet',
+    'no_posts' => 'No posts yet', 
+
+
     //conditions and rules
     'text' => 'Text',
     '' => '',
@@ -63,11 +72,12 @@ return [
     'add' => 'Add',
     'edit_user' => 'Edit user',
     'edit' => 'Edit',
+    'delete' => 'Delete',
     'save' => 'Save',
     'add_post' => 'Add post',
     'edit_post' => 'Edit post',
     'add_condition' => 'Add Condition or rule',
-    '' => '',
+    'block_user' => 'Block user',
     '' => '',
     '' => '',
     '' => '',
@@ -99,7 +109,7 @@ return [
     'condition_added' => 'Condition added successfuly',
     'condition_updated' => 'Condition updated successfuly',
     'condition_deleted' => 'Condition deleted',
-    '' => '',
+    'comment_deleted' => 'Comment deleted',
     '' => '',
     '' => '',
 

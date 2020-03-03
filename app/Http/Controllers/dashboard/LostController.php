@@ -16,16 +16,16 @@ class LostController extends Controller
 {
     public function __construct()
     {
-        Auth::guard('web');
+        Auth::shouldUse('web');
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getLosts()
     {
-        return view('admin.losts.index')->with('losts', Post::where('found', 0)->where('category_id', '!=', null)->get());
+        return view('admin.losts.index')->with('losts', Post::with('images', 'user')->where('found', 0)->where('category_id', '!=', null)->get());
     }
 
     /**
@@ -33,7 +33,7 @@ class LostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createLost()
     {
         return view('admin.losts.create')->with('categories', Post::where('category_id', null)->get(['id', 'title']));
     }
@@ -44,12 +44,12 @@ class LostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DashLostRequest $request)
+    public function storeLost(DashLostRequest $request)
     {
         //Check number of uploaded images min:1 max:3
         if(count($request->images) < 0 || count($request->images) > 3){
             session()->flash('error', 'من فضلك ادخل صوره واحده على الاقل و ثلاثه على الاكثر');
-            return redirect('losts');
+            return redirect()->route('losts.getLosts');
         }
         $imageRules = array(
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -88,7 +88,7 @@ class LostController extends Controller
         }
 
         session()->flash('message', trans('admin.post_created'));
-        return redirect('losts');
+        return redirect()->route('losts.getLosts');
     }
 
     /**
@@ -97,9 +97,10 @@ class LostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showLost($id)
     {
-        abort(404);
+        $post = Post::with('images', 'comments', 'category', 'user')->where('id', $id)->first();
+        return view('admin.losts.show')->with('post', $post);
     }
 
     /**
@@ -108,7 +109,7 @@ class LostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editLost($id)
     {
         $lost = Post::find($id);
         $categories = Post::where('category_id', null)->get(['id', 'title']);
@@ -122,7 +123,7 @@ class LostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DashEditLostRequest $request, $id)
+    public function updateLost(DashEditLostRequest $request, $id)
     {
         //update post
         $post = Post::find($id);
@@ -134,7 +135,7 @@ class LostController extends Controller
             $post_images = Image::where('post_id', $id)->get();
             if(count($post_images) == 3){
                 session()->flash('message', trans('admin.max_images'));
-                return redirect('losts');
+                return redirect()->route('losts.getLosts');
             }
             //if the post has less than 3 images then upload the rest up to 3 images
             else if(count($post_images) < 3){
@@ -194,7 +195,7 @@ class LostController extends Controller
         }
 
         session()->flash('message', trans('admin.post_updated'));
-        return redirect('losts');
+        return redirect()->route('losts.getLosts');
     }
 
     /**

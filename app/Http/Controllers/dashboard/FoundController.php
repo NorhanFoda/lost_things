@@ -7,15 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\DashFoundRequest;
 use Carbon\Carbon;
+use Auth;
 
 class FoundController extends Controller
 {
+    public function __construct()
+    {
+        Auth::shouldUse('web');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getfounds()
     {
         return view('admin.founds.index')->with('founds', Post::where('found', 1)->get());
     }
@@ -25,7 +30,7 @@ class FoundController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createFound()
     {
         return view('admin.founds.create')->with('categories', Post::where('category_id', null)->get(['id', 'title']));
     }
@@ -36,7 +41,7 @@ class FoundController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DashFoundRequest $request)
+    public function storeFound(DashFoundRequest $request)
     {
         //Create post
         $post = Post::create([
@@ -51,7 +56,7 @@ class FoundController extends Controller
             'published_at' => date("Y-m-d", strtotime(Carbon::now())),
         ]);
         session()->flash('message', trans('admin.post_created'));
-        return redirect('founds');
+        return redirect()->route('founds.getFounds');
     }
 
     /**
@@ -60,9 +65,10 @@ class FoundController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showFound($id)
     {
-        abort(404);
+        $post = Post::with('comments', 'category', 'user')->where('id', $id)->first();
+        return view('admin.founds.show')->with('post', $post);
     }
 
     /**
@@ -71,7 +77,7 @@ class FoundController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editFound($id)
     {
         $found = Post::find($id);
         $categories = Post::where('category_id', null)->get(['id', 'title']);
@@ -85,11 +91,11 @@ class FoundController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateFound(Request $request, $id)
     {
         Post::find($id)->update($request->all());
         session()->flash('message', trans('admin.post_updated'));
-        return redirect('founds');
+        return redirect()->route('founds.getFounds');
     }
 
     /**

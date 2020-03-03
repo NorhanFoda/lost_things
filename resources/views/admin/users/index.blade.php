@@ -74,15 +74,10 @@
                                             <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
                                         </td>
                                         <td>
-                                            {{-- <a href="{{route('users.show', $user->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
+                                            <a href="{{route('users.show', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             <a href="{{route('users.edit', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$user->id}}'
-                                                class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                            {{-- <form action="{{route('users.destroy', $user->id)}}" method="POST" style="display:inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form> --}}
+                                                class="delete btn" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

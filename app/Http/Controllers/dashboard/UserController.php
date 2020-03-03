@@ -10,7 +10,10 @@ use Auth;
 
 class UserController extends Controller
 {
-   
+    public function __construct()
+    {
+        Auth::shouldUse('web');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -66,7 +69,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        abort(404);
+        $user = User::with('posts.images', 'favorites', 'blockList', 'comments')->where('id', $id)->first();
+        return view('admin.users.show')->with('user', $user);
     }
 
     /**

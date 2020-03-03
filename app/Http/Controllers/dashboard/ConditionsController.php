@@ -5,9 +5,14 @@ namespace App\Http\Controllers\dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Condition;
+use Auth;
 
 class ConditionsController extends Controller
 {
+    public function __construct()
+    {
+        Auth::shouldUse('web');
+    }
     /**
      * Display a listing of the resource.
      *

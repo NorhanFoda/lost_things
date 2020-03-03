@@ -26,7 +26,7 @@
                         <li class="breadcrumb-item">
                             <a href="/">{{trans('admin.main')}}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{trans('admin.users')}}
+                        <li class="breadcrumb-item active">{{trans('admin.block_list')}}
                         </li>
                     </ol>
                 </div>
@@ -67,13 +67,10 @@
                                             <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
                                         </td>
                                         <td>
-                                            <a href="{{route('users.show', $user->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="{{route('users.edit', $user->id)}}" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <form action="{{route('users.destroy', $user->id)}}" style="display:inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form>
+                                            <a href="{{route('users.show', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{route('users.edit', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$user->id}}'
+                                                class="delete btn" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,6 +97,7 @@
 
 @section('scripts')
     <script>
+        // block / unblock users
         $(document).on('click', '.ban-unlock', function (e) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -143,6 +141,61 @@
                                     Swal.fire({
                                         type: 'success',
                                         title: '{{trans('admin.user_unblocked')}}',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    window.location.reload(); 
+                                }
+                            }
+                        });
+                } else if (
+                    // / Read more about handling dismissals below /
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: '{{trans('admin.alert_cancelled')}}',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            })
+        });
+
+        //delete users
+        $(document).on('click', '.delete', function (e) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            });
+            swalWithBootstrapButtons.fire({
+                title: '{{trans('admin.alert_title')}}',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '{{trans('admin.yes')}}',
+                cancelButtonText: '{{trans('admin.no')}}',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+                    var id = $(this).attr('object_id');
+                    var status = $(this).attr('object_status');
+                        token = $('meta[name="csrf-token"]').attr('content');
+                        $.ajax({
+                            url: "{{route('users.delete')}}",
+                            type: "post",
+                            dataType: 'json',
+                            data: {"_token": "{{ csrf_token() }}", id: id},
+                            success: function(data){
+                                if(data.data == 1){
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: '{{trans('admin.user_deleted')}}',
                                         showConfirmButton: false,
                                         timer: 1500
                                     });

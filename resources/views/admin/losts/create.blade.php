@@ -36,7 +36,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         {{-- @include('alert') --}}
-                        <form class="form form-horizontal needs-validation" novalidate method="post" enctype="multipart/form-data" action="{{route('losts.store')}}">
+                        <form class="form form-horizontal needs-validation" novalidate method="post" enctype="multipart/form-data" action="{{route('losts.storeLost')}}">
                             @csrf
                             <div class="form-body">
                                 <div class="row">

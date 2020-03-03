@@ -45,7 +45,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <a href="{{route('founds.create')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>
+                            <a href="{{route('founds.createFound')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>
                             <table class="table table-bordered mb-0">
                                 <thead>
                                 <tr align="center">
@@ -66,8 +66,8 @@
                                         <td>{{$found->location}}</td>
                                         <td>{{$found->published_at}}</td>
                                         <td>
-                                            {{-- <a href="{{route('losts.show', $lost->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                            <a href="{{route('founds.edit', $found->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="{{route('founds.showFound', $found->id)}}" class="btn" style="color:white;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{route('founds.editFound', $found->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$found->id}}'
                                                 class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                             {{-- <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">

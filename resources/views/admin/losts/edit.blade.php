@@ -36,7 +36,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         {{-- @include('alert') --}}
-                        <form class="form form-horizontal needs-validation" novalidate method="post" enctype="multipart/form-data" action="{{route('losts.update', $lost->id)}}">
+                        <form class="form form-horizontal needs-validation" novalidate method="post" enctype="multipart/form-data" action="{{route('losts.updateLost', $lost->id)}}">
                             @csrf
                             @method('PUT')
 

@@ -10,7 +10,10 @@ use Auth;
 
 class AdminController extends Controller
 {
-
+    public function __construct()
+    {
+        Auth::shouldUse('web');
+    }
     public function change_locale($locale){
         \LaravelLocalization::setLocale($locale);
 	    $url = \LaravelLocalization::getLocalizedURL(\App::getLocale(), \URL::previous());

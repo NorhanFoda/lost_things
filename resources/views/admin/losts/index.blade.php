@@ -45,7 +45,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <a href="{{route('losts.create')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>
+                            <a href="{{route('losts.createLost')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>
                             <table class="table table-bordered mb-0">
                                 <thead>
                                 <tr align="center">
@@ -67,13 +67,13 @@
                                         <td>{{$lost->location}}</td>
                                         <td>{{$lost->published_at}}</td>
                                         <td>
-                                            <img @if(count($lost->images) > 0) src={{$lost->images[0]->path}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
+                                            <img @if(count($lost->images) > 0) src="{{$lost->images[0]->path}}" @else src="no image" @endif alt="user" style="width:200px; height:100px">
                                         </td>
                                         <td>
-                                            {{-- <a href="{{route('losts.show', $lost->id)}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                            <a href="{{route('losts.edit', $lost->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="{{route('losts.showLost', $lost->id)}}" class="btn" style="color:white"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{route('losts.editLost', $lost->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$lost->id}}'
-                                                class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                class="btn delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                             {{-- <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
@@ -145,15 +145,6 @@
                                     });
                                     window.location.reload(); 
                                 }
-                                // else if(data.data == 0){
-                                //     Swal.fire({
-                                //         type: 'success',
-                                //         title: '{{trans('admin.user_unblocked')}}',
-                                //         showConfirmButton: false,
-                                //         timer: 1500
-                                //     });
-                                //     window.location.reload(); 
-                                // }
                             }
                         });
                 } else if (

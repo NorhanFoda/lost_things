@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Comment;
 use App\Models\Image;
+use App\Models\Post;
 
 class Post extends Model
 {
@@ -22,5 +23,9 @@ class Post extends Model
 
     public function images(){
         return $this->hasMany(Image::class);
+    }
+
+    public function category(){
+        return $this->hasOne(Post::class, 'id', 'category_id');
     }
 }

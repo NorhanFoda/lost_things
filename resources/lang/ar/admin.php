@@ -35,6 +35,8 @@ return [
     'edit_profile' => 'تعديل الملف الشخصى',
     'logout' => 'تسجيل الخروج',
     'welcome' => 'مرحبا',
+    'account' => 'الحساب',
+    'birth_date' => 'تاريخ الميلاد',
 
     //posts translations
     'posts' => 'المنشورات',
@@ -45,6 +47,11 @@ return [
     'category' => 'النوع',
     'description' => 'الوصف',
     'place' => 'المكان',
+    'not_found' => 'لم يتم العثور عليه',
+    'found' => 'تم العثور عليه',
+    'comments' => 'التعليقات',
+    'no_comments' => 'لا توجد تعليقات',
+    'no_posts' => 'لا توجد منشورات',
 
     //conditions and rules
     'text' => 'النص',
@@ -61,11 +68,12 @@ return [
     'add' => 'اضافة',
     'edit_user' => 'تعديل مستخدم',
     'edit' => 'تعديل',
+    'delete' => 'حذف',
     'save' => 'حفظ',
     'add_post' => 'اضافة منشور',
     'edit_post' => 'تعديل المنشور',
     'add_condition' => 'اضافة شروط',
-    '' => '',
+    'block_user' => 'حظر المستخدم',
     '' => '',
     '' => '',
     '' => '',
@@ -96,7 +104,7 @@ return [
     'condition_added' => 'تمت اضافة الشرط بنجاح',
     'condition_updated' => 'تم تعديل الشرط بنجاح',
     'condition_deleted' => 'تم حذف الشرط',
-    '' => '',
+    'comment_deleted' => 'تم حذف التعليق',
     '' => '',
     //alert
     'alert_title' => 'هل انت متأكد؟',
