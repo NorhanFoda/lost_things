@@ -98,7 +98,7 @@
                                                 <span>{{trans('admin.password')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="password" class="form-control" placeholder="{{trans('admin.password')}}"  value="{{$user->password}}" minlength="6" name="password">
+                                                <input type="password" class="form-control" placeholder="{{trans('admin.password')}}" minlength="6" name="password">
                                                 <div class="invalid-feedback">
                                                     @error('password')
                                                         {{$message}}
@@ -115,7 +115,7 @@
                                                 <span>{{trans('admin.password_confirmation')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="password" class="form-control" placeholder="{{trans('admin.password_confirmation')}}" value="{{$user->password}}" name="password_confirmation">
+                                                <input type="password" class="form-control" placeholder="{{trans('admin.password_confirmation')}}" name="password_confirmation">
                                                 <div class="invalid-feedback">
                                                     @error('password_confirmation')
                                                         {{$message}}
