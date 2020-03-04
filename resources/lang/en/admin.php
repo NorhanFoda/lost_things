@@ -121,13 +121,15 @@ return [
     'post_deleted' => 'Post deleted',
     '' => '',
     '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+
+    //Validation messages
+    //1-UserRequest
+    'name_required' => 'Please enter user name',
+    'email_required_without' => 'Please enter email or phone',
+    'email_incorrect' => 'Email format is incorrect',
+    'phone_required_without' => 'Please enter user phone or email',
+    'phone_regex' => 'Phone format is incorrect',
+    'password_min' => 'Password must be at least 6 letters',
+    'required_with' => 'Please enter password',
+    'password_same' => 'Password mismatch',
 ];

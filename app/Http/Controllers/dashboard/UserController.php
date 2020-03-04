@@ -44,6 +44,18 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        if($request->phone != null){
+            $phone_rules = array(
+                'phone' => 'regex:/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/',
+            );
+            $phone_to_validate = array('phone' => $request->phone);
+            $phoneValidator = Validator::make($phone_to_validate, $phone_rules);
+            if ($phoneValidator->fails()) {
+                // return $phoneValidator->messages();
+                return redirect()->route('users.index')->with('error', trans('phone_regex'));
+            }
+        }
+
         $user = User::create($request->all());
         if($request->image != null){
             //Make image name unique

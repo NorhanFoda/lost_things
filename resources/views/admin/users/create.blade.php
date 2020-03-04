@@ -29,9 +29,9 @@
         </div>
 
         <h1>
-            @error('phone')
-            {{$message}}
-        @enderror
+            @foreach($errors->all() as $error)
+                {{$error}}
+            @endforeach
         </h1>
 
         <div class="col-12">
