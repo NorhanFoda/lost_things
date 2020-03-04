@@ -45,6 +45,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	//comments
 	Route::post('delete_comment', 'dashboard\CommentController@deleteComment')->name('comments.delete');
 
+	//Chat
+	Route::get('get_chat_page', 'dashboard\ChatController@index')->name('chat.index')->middleware('auth:web');
+	Route::post('chat', 'dashboard\ChatController@store')->name('chat.store')->middleware('auth:web');
+	Route::post('chat/join', 'dashboard\ChatController@join')->name('chat.join')->middleware('auth:web');
+
 	//change lang
 	Route::get('change_locale/{locale}', 'dashboard\AdminController@change_locale')->name('change_locale');
 

@@ -18,6 +18,7 @@ return [
     'active_users' => 'Active users',
     'unactive_users' => 'Un active users',
     'conditions_and_rules' => 'Conditions and rules',
+    'chat' => 'Users messages',
 
     //users translation
     'name' => 'Name',
@@ -78,7 +79,7 @@ return [
     'edit_post' => 'Edit post',
     'add_condition' => 'Add Condition or rule',
     'block_user' => 'Block user',
-    '' => '',
+    'send' => 'Send',
     '' => '',
     '' => '',
     '' => '',

@@ -19,6 +19,7 @@ return [
     'active_users' => 'المستخدمين المفعلين',
     'unactive_users' => 'المستخدمين غير المفعلين',
     'conditions_and_rules' => 'الشروط و الاحكام',
+    'chat' => 'رسائل المستخدمين',
 
     //user translation
     'name' => 'الاسم',
@@ -74,7 +75,7 @@ return [
     'edit_post' => 'تعديل المنشور',
     'add_condition' => 'اضافة شروط',
     'block_user' => 'حظر المستخدم',
-    '' => '',
+    'send' => 'ارسال',
     '' => '',
     '' => '',
     '' => '',

@@ -17,6 +17,7 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->text('message');
+            $table->integer('type')->default(0);// 1 admin - 0 normal user
             $table->timestamps();
         });
     }
