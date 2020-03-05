@@ -1,4 +1,4 @@
-{{-- {{dd($user_id)}}s --}}
+{{-- {{dd(\App\USer::find($user_id)->image)}} --}}
 @extends('admin.layouts.app')
 
 @section('pageTitle')
@@ -17,19 +17,19 @@
                 <div class="users">Loading users ...</div>
             </div>
             <div class="card-body">
-				@if(count($messages) > 0)
-					@foreach ($messages as $msg)
-						@if($msg->type == 0 && $msg->user_id == auth()->user()->id)
-							<div class="chat-item-right pull-right"></div>
-						@else 
-							@if($msg->type == 0 && $msg->user_id != auth()->user()->id)
-								<div class="chat-item-left pull-left">{{$msg->message}}</div>
-							@endif
-						@endif
-					@endforeach
-				@else
-					No Messages
-				@endif
+				{{-- @if(count($messages) > 0) --}}
+					{{-- @foreach ($messages as $msg) --}}
+						{{-- @if($msg->type == 0 && $msg->user_id == auth()->user()->id) --}}
+							<div class="chat-item"></div>
+						{{-- @else  --}}
+							{{-- @if($msg->type == 0 && $msg->user_id != auth()->user()->id) --}}
+								{{-- <div class="chat-item-left pull-left">{{$msg->message}}</div> --}}
+							{{-- @endif --}}
+						{{-- @endif --}}
+					{{-- @endforeach --}}
+				{{-- @else --}}
+					{{-- No Messages --}}
+				{{-- @endif --}}
             </div>
             <div class="card-footer">
                 <form id="chat-form">
@@ -76,17 +76,57 @@
 			var chat_element = "";
 			if(snapshot.val() != null) {
                 var shot = snapshot.val();
+				// var shot = Object.keys(shot).map(function(key) {
+				// 	return [shot[key]];
+				// });
+				last_index = Object.keys(shot)[Object.keys(shot).length - 1];
                 for(let index in shot){
-                    var chat_name = '{{auth()->user()->name}}';
-                    chat_content = shot[index].message;
-					users_name[index] = chat_name;
+				// for(var index = 0; index < shot.length; index+2){
 
-					chat_element += '<div class="chat-item '+shot[index].type+'">';
-					chat_element += '<div class="chat-text">';
-					chat_element += chat_content;
-					chat_element += '</div>';
+					// console.log(shot[index][0].message);
+					// return;
 					
-					// $('.chat-item-right').html(chat_element)
+                    var chat_name = '{{auth()->user()->name}}';
+					
+					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 1){
+						continue;
+					}
+
+					//sender
+					else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 0){
+						chat_content = shot[index].message;
+						// chat_content = shot[index].type;
+						users_name[index] = chat_name;
+
+						chat_element += '<div>'
+						// chat_element += chat_content;
+						chat_element += `<div>
+											<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image}}'+`' alt='no image'/>
+													`+chat_content+`
+											</div><br>`;
+						chat_element += '</div>';	
+					}
+
+					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 0){
+						chat_content = shot[index].message;
+						users_name[index] = chat_name;
+
+						chat_element += '<div>';
+						if(shot[last_index].type == 0){
+							chat_element += `<div>`+chat_content+`</div><br>`;
+						}
+						else{
+							chat_element += `<div>
+											<img class='round' height='30' width='30' src=`+'{{auth()->user()->image}}'+` alt='no image'/>
+												`+chat_content+`
+										</div><br>`;
+						}
+						chat_element += '</div>';
+
+					}
+					else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 1){
+						continue;
+					}
 					$(".card-body").html(chat_element);
 				}
 	
