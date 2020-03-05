@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Message;
+use App\Models\Chat;
 
 class ChatController extends Controller
 {
@@ -20,19 +21,62 @@ class ChatController extends Controller
         ], 200);
     }
 
-    public function sendMessages(Request $request){
-        if($request->message != null){
-            $user = auth()->user();
-            $user->messages()->create([
-                'message' => $request->message
-            ]);
-            return response()->json([
-                'data' => 'Message sent'
-            ], 201);
+    public function getUserMessages(Request $request){
+        $this->validate($request,[
+            'sender' => 'required',
+            'receiver' => 'required'
+        ]);
+
+        $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
+                ->orWhere(['user2_id' => $request->sender, 'user1_id' => $request->receiver])->first();
+        if($chat){
+           $msg = Message::where('chat_id', $chat->id) ->get();
+           return response()->json([
+                'data' => $msg
+           ], 200);
         }
+        else{
+            return response()->json(null, 404);
+        }
+    }
+
+    public function sendMessages(Request $request){
+        $this->validate($request, [
+            'sender' => 'required',
+            'receiver' => 'required',
+            'message' => 'required'
+        ]);
+
+        //find users chating channel
+        $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
+                    ->orWhere(['user2_id' => $request->sender, 'user1_id' => $request->receiver])->first();
+        //if there is no channel then create one
+        if(!$chat){
+            $chat = Chat::create([
+                'user1_id' => $request->sender, //sender
+                'user2_id' => $request->receiver //receiver
+            ]);
+        }
+
+        //create sender messages
+        $sent = Message::create([
+            'user_id' => $chat->user1_id,
+            'message' => $request->message,
+            'type' => 0,
+            'chat_id' => $chat->id
+        ]);
+
+        //create reciever messages
+        $received = Message::create([
+            'user_id' => $chat->user2_id,
+            'message' => $request->message,
+            'type' => 1,
+            'chat_id' => $chat->id
+        ]);
+
         return response()->json([
-            'error' => 'Message required'
-        ], 400);
+            'data' => ['sent' => $sent, 'received' => $received]
+        ], 201);
     }
 
     public function deleteMessages($id){

@@ -19,7 +19,7 @@ return [
     'active_users' => 'المستخدمين المفعلين',
     'unactive_users' => 'المستخدمين غير المفعلين',
     'conditions_and_rules' => 'الشروط و الاحكام',
-    'chat' => 'رسائل المستخدمين',
+    'user_messages' => 'رسائل المستخدمين',
 
     //user translation
     'name' => 'الاسم',

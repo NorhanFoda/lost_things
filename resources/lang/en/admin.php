@@ -18,7 +18,7 @@ return [
     'active_users' => 'Active users',
     'unactive_users' => 'Un active users',
     'conditions_and_rules' => 'Conditions and rules',
-    'chat' => 'Users messages',
+    'user_messages' => 'Users messages',
 
     //users translation
     'name' => 'Name',
