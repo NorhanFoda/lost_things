@@ -41,6 +41,8 @@ Route::group([
     Route::post('change_location/{id}', 'api\EditProfileController@changeLocation');
     //4-Change date of birth
     Route::post('change_birth_date/{id}', 'api\EditProfileController@changeBirthDate');
+    //5-edit profile
+    Route::post('edit_profile', 'api\EditProfileController@editProfile');
 
     //Setting
     //1-Change email

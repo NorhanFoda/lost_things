@@ -32,9 +32,11 @@
 				{{-- @endif --}}
             </div>
             <div class="card-footer">
-                <form id="chat-form">
+				<form id="chat-form" enctype="multipart/form-data">
+					{{-- {{ csrf_field() }} --}}
                     <div class="input-group">
-                        <input type="text" name="content" class="form-control" placeholder="Type your message ..." autocomplete="off">
+						<input type="text" name="content" class="form-control" placeholder="Type your message ..." autocomplete="off">
+						<input type="file" name="image" id="image" class="form-control" accept=".gif, .jpg, .png, .webp">
                         <div class="input-group-btn">
                             <button class="btn btn-primary">Send</button>
                         </div>
@@ -79,13 +81,8 @@
 				// var shot = Object.keys(shot).map(function(key) {
 				// 	return [shot[key]];
 				// });
-				last_index = Object.keys(shot)[Object.keys(shot).length - 1];
+				last_index = Object.keys(shot)[Object.keys(shot).length - 2];
                 for(let index in shot){
-				// for(var index = 0; index < shot.length; index+2){
-
-					// console.log(shot[index][0].message);
-					// return;
-					
                     var chat_name = '{{auth()->user()->name}}';
 					
 					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 1){
@@ -95,15 +92,27 @@
 					//sender
 					else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 0){
 						chat_content = shot[index].message;
-						// chat_content = shot[index].type;
 						users_name[index] = chat_name;
-
 						chat_element += '<div>'
-						// chat_element += chat_content;
-						chat_element += `<div>
-											<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image}}'+`' alt='no image'/>
-													`+chat_content+`
-											</div><br>`;
+						if(shot[index].image == null){
+							chat_element += `<div>
+										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image}}'+`' alt='no image'/>
+												`+shot[index].message+`
+										</div><br>`;
+						}
+						else if(shot[index].message == null){
+							chat_element += `<div>
+										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image}}'+`' alt='no image'/>
+												<img height='50' width='50' src ='`+shot[index].image+`'>
+										</div><br>`;
+						}
+						else{
+							chat_element += `<div>
+										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image}}'+`' alt='no image'/>
+												`+shot[index].message+`<br>
+												<img height='100' width='100' src ='`+shot[index].image+`''>
+										</div><br>`;
+						}
 						chat_element += '</div>';	
 					}
 
@@ -112,15 +121,15 @@
 						users_name[index] = chat_name;
 
 						chat_element += '<div>';
-						if(shot[last_index].type == 0){
-							chat_element += `<div>`+chat_content+`</div><br>`;
-						}
-						else{
+						// if(shot[last_index].type == 0){
+						// 	chat_element += `<div>`+chat_content+`</div><br>`;
+						// }
+						// else{
 							chat_element += `<div>
 											<img class='round' height='30' width='30' src=`+'{{auth()->user()->image}}'+` alt='no image'/>
 												`+chat_content+`
 										</div><br>`;
-						}
+						// }
 						chat_element += '</div>';
 
 					}
@@ -187,24 +196,30 @@
 		}
 
 		// #chat-form action handler
-		$("#chat-form").submit(function() {
+		$("#chat-form").submit(function(e) {
+			// var formData = new FormData($(this)[0]);
 			var me = $(this),
 				chat_content = me.find('[name=content]'),
 				user_name = localStorage.getItem('user_name');
 
 			// if the value of chat_content is empty
-			if(chat_content.val().trim().length <= 0) {
+			// if(chat_content.val().trim().length <= 0) {
 				// set focus to chat_content
-				chat_content.focus();
-			}else if(!user_name) {
-				alert('We need your name!1!1!1!1');
-			}else{ // if the chat_content value is not empty
+				// chat_content.focus();
+			// }else if(!user_name) {
+				// alert('We need your name!1!1!1!1');
+			// }else{ // if the chat_content value is not empty
+			// alert(me.files[0].mozFullPath[0].files9[0].formAction)
+			// console.log( $('input[type=file]').change(function () {
+			// 					return me.files[0].mozFullPath[0].files.formAction;
+			// 				}))
 				$.ajax({
 					url: '{{ route('chat.store') }}',
 					data: {
 						content: chat_content.val().trim(),
 						chat_id: '{{$chat_id}}',
-						user2_id: '{{$user_id}}'
+						user2_id: '{{$user_id}}',
+						image: $('#image').val()
 					},
 					method: 'post',
 					headers: {
@@ -222,7 +237,7 @@
 						scroll_bottom();
 					}
 				});
-			}
+			// }
 
 			return false;
 		});

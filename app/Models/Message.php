@@ -10,7 +10,7 @@ use App\Models\Chat;
 class Message extends Model
 {
     use SyncsWithFirebase;
-    protected $fillable = ['message', 'user_id','type', 'chat_id'];
+    protected $fillable = ['message', 'user_id','type', 'chat_id','image'];
 
     public function user(){
         return $this->belongsTo(User::class);

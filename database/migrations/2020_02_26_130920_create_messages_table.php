@@ -17,6 +17,8 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->text('message');
+            $table->string('image')->nullable();
+            // $table->integer('message_type')->nullable(); // 0 text - 1 image
             $table->integer('type')->default(0);// 0 sender - 1 reciever
             $table->unsignedBigInteger('chat_id')->nullable()->index();
             $table->timestamps();

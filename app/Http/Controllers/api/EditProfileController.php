@@ -213,4 +213,47 @@ class EditProfileController extends Controller
         ], 400);
     }
 
+    public function editProfile(Request $request){
+        if(auth()->user()->id == $request->id){
+            
+            //update user data
+            $user = User::find($request->id)->update($request->all());
+            
+            //update image
+            if($request->image != null){
+                //Validate image
+                $imageRules = array(
+                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                );
+                $image_to_validate = array('image' => $request->image);
+                $imageValidator = Validator::make($image_to_validate, $imageRules);
+                if ($imageValidator->fails()) {
+                    return $imageValidator->messages();
+                }
+
+                //Make image name unique
+                $full_file_name = $request->image;
+                $file_name = pathinfo($full_file_name, PATHINFO_FILENAME);
+                $extension = $request->image->getClientOriginalExtension();
+                $file_name_to_store = $file_name.'_'.time().'.'.$extension;
+                
+                //Upload image
+                $path = $request->image->move(public_path('/'), $file_name_to_store);
+                $url = url('/'.$file_name_to_store);
+
+                $user = User::find($request->id);
+                $user->image = $url;
+                $user->save();
+            }
+            
+            
+            return response()->json([
+                'data' => $user
+            ], 200);
+        }
+        return response()->json([
+            'error' => 'User is UN AUTHORIZED to performe this action'
+        ], 400);
+    }
+
 }
