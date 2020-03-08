@@ -39,7 +39,7 @@
         </div> --}}
 
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="width:70%; margin:auto;">
                 <div class="card-content">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -49,20 +49,24 @@
                                 <tr align="center">
                                     <th>#</th>
                                     <th>{{trans('admin.user')}}</th>
-                                    <th>{{trans('admin.message')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @if(count($users) > 0)
                                     @foreach($users as $user)
-                                        <tr align="center">
+                                        <tr>
                                             @if(count($user->messages) > 0)
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$user->name}}</td>
+                                                <td align="center">{{$loop->iteration}}</td>
                                                 <td>
-                                                    <a href="{{route('chat.getChat', $user->messages[count($user->messages) - 1]->chat_id)}}" 
-                                                        style="color:white">
-                                                        <div style="width:auto; height:auto">{{$user->messages[count($user->messages) - 1]->message}}</div>
+                                                    <a href="{{route('chat.getChat', $user->messages[count($user->messages) - 1]->chat_id)}}" style="color:white">
+                                                        <div style="vertical-align:text-top">
+                                                            <img src="{{$user->image ? $user->image : '/images/avatar.png'}}" 
+                                                                alt="{{$user->name}}" 
+                                                                class="round" width="40" height="40">
+                                                            <span style="font-weight:bolder">{{$user->name}}</span><br>
+                                                            <span class="chat-msg">{{$user->messages[count($user->messages) - 1]->message}}</span>
+                                                            <small class="chat-date">{{$user->messages[count($user->messages) - 1]->created_at->diffForHumans(\Carbon\Carbon::now())}}</small>
+                                                        </div>
                                                     </a>
                                                 </td>
                                             @endif

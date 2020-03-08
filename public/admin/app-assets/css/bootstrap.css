@@ -203,6 +203,14 @@ button:focus {
     background: #00000069 !important;
     padding: 10px 10px 10px !important;
 }
+.chat-msg{
+  font-weight:100; 
+  margin-left:40px; 
+  padding:0%
+}
+.chat-date{
+  float: right !important;
+}
 input,
 button,
 select,

@@ -300,7 +300,14 @@ legend {
   background: #00000069 !important;
   padding: 10px 10px 10px !important;
 }
-
+.chat-msg{
+  font-weight:100; 
+  margin-right:40px; 
+  padding:0%
+}
+.chat-date{
+  float: left !important;
+}
 progress {
   vertical-align : baseline;
 }
