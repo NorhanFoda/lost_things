@@ -177,6 +177,11 @@ return [
 
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
+        //Firebase for laravel
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+        
+        DouglasResende\FCM\NotificationServiceProvider::class
+
     ],
 
     /*

@@ -83,7 +83,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-top : 0;
   margin-bottom : 0.5rem;
 }
-
+.btn-send{
+  width: 45px !important;
+  height: 45px !important;
+  padding: 0 !important;
+  border-radius: 50%;
+}
 p {
   margin-top : 0;
   margin-bottom : 1rem;
@@ -290,6 +295,10 @@ legend {
   line-height : inherit;
   color : inherit;
   white-space : normal;
+}
+.chet-header{
+  background: #00000069 !important;
+  padding: 10px 10px 10px !important;
 }
 
 progress {
@@ -4585,6 +4594,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
 .card-link + .card-link {
   margin-right : 1.5rem;
 }
+
 
 .card-header {
   padding : 1.5rem 1.5rem;

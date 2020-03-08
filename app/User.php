@@ -47,6 +47,12 @@ class User extends Authenticatable implements JWTSubject
     ];
     // Rest omitted for brevity
 
+    public function routeNotificationForFcm()
+    {
+        // return $this->device_token;
+        return $this->fcm_token;
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

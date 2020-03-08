@@ -199,6 +199,10 @@ button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color; }
 
+.chet-header{
+    background: #00000069 !important;
+    padding: 10px 10px 10px !important;
+}
 input,
 button,
 select,
@@ -212,7 +216,16 @@ textarea {
 button,
 input {
   overflow: visible; }
+.chat-2{
+  text-align: right !important;
+}
 
+.btn-send{
+  width: 45px !important;
+  height: 45px !important;
+  padding: 0 !important;
+  border-radius: 50%;
+}
 button,
 select {
   text-transform: none; }

@@ -42,6 +42,7 @@ class ChatController extends Controller
     }
 
     public function sendMessages(Request $request){
+
         $this->validate($request, [
             'sender' => 'required',
             'receiver' => 'required',

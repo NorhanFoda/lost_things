@@ -14,6 +14,7 @@
     <link rel="apple-touch-icon" href="{{asset('admin/app-assets/app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('admin/app-assets/images/ico/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     @if(\App()->getLocale()=='ar')

@@ -69,7 +69,6 @@ Route::group([
 
     //Chat
     Route::get('get_user_messages', 'api\ChatController@getUserMessages');
-
     Route::get('fetch_messages', 'api\ChatController@fetchMessages');
     Route::post('send_messages', 'api\ChatController@sendMessages');//send message to admin
     Route::delete('delete_messages/{id}', 'api\ChatController@deleteMessages');
