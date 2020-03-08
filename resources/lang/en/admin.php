@@ -111,6 +111,12 @@ return [
     'condition_updated' => 'Condition updated successfuly',
     'condition_deleted' => 'Condition deleted',
     'comment_deleted' => 'Comment deleted',
+    'chat_deleted' => 'Chat deleted',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
     '' => '',
     '' => '',
 

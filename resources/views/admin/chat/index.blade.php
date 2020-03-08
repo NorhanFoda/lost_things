@@ -64,10 +64,14 @@
                                                                 alt="{{$user->name}}" 
                                                                 class="round" width="40" height="40">
                                                             <span style="font-weight:bolder">{{$user->name}}</span><br>
-                                                            <span class="chat-msg">{{$user->messages[count($user->messages) - 1]->message}}</span>
+                                                            <p class="chat-msg">{{$user->messages[count($user->messages) - 1]->message}}</p>
                                                             <small class="chat-date">{{$user->messages[count($user->messages) - 1]->created_at->diffForHumans(\Carbon\Carbon::now())}}</small>
                                                         </div>
                                                     </a>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$user->messages[0]->chat_id}}'
+                                                        class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                 </td>
                                             @endif
                                         </tr>
@@ -96,9 +100,60 @@
 
 @section('scripts')
     <script>
-        function viewChat(chat_id){
-            alert(chat_id);
-        }
+        //delete users
+        $(document).on('click', '.delete', function (e) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            });
+            swalWithBootstrapButtons.fire({
+                title: '{{trans('admin.alert_title')}}',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '{{trans('admin.yes')}}',
+                cancelButtonText: '{{trans('admin.no')}}',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+                    var id = $(this).attr('object_id');
+                        token = $('meta[name="csrf-token"]').attr('content');
+                        $.ajax({
+                            url: "{{route('chats.delete')}}",
+                            type: "post",
+                            dataType: 'json',
+                            data: {"_token": "{{ csrf_token() }}", id: id},
+                            success: function(data){
+                                if(data.data == 1){
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: '{{trans('admin.chat_deleted')}}',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    window.location.reload(); 
+                                }
+                            }
+                        });
+                } else if (
+                    // / Read more about handling dismissals below /
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: '{{trans('admin.alert_cancelled')}}',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            })
+        });
     </script>
 
 @endsection
+

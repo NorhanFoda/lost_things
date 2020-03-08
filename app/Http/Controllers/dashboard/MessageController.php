@@ -99,6 +99,20 @@ class MessageController extends Controller
 
 		$chat = Message::create($input);
 		return response(['data' => $chat], 200);
-	}
+    }
+    
+    public function deleteChat(Request $request){
+        if($request->ajax()){
+            $messages = Message::where('chat_id', $request->id)->get();
+            foreach($messages as $msg){
+                $msg->delete();
+            }
+            Chat::find($request->id)->delete();
+            session()->flash('success', 'chat deleted');
+            return response()->json([
+                'data' => 1,
+            ], 200);
+        }
+    }
 
 }

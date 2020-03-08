@@ -70,11 +70,6 @@
                                             <a href="{{route('founds.editFound', $found->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$found->id}}'
                                                 class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                            {{-- <form action="{{route('losts.destroy', $lost->id)}}" method="POST" style="display:inline-block">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -141,15 +136,6 @@
                                     });
                                     window.location.reload(); 
                                 }
-                                // else if(data.data == 0){
-                                //     Swal.fire({
-                                //         type: 'success',
-                                //         title: '{{trans('admin.user_unblocked')}}',
-                                //         showConfirmButton: false,
-                                //         timer: 1500
-                                //     });
-                                //     window.location.reload(); 
-                                // }
                             }
                         });
                 } else if (

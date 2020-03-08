@@ -300,10 +300,13 @@ legend {
   background: #00000069 !important;
   padding: 10px 10px 10px !important;
 }
-.chat-msg{
-  font-weight:100; 
-  margin-right:40px; 
-  padding:0%
+
+p.chat-msg {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  margin-right: 40px;
 }
 .chat-date{
   float: left !important;

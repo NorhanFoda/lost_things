@@ -203,11 +203,14 @@ button:focus {
     background: #00000069 !important;
     padding: 10px 10px 10px !important;
 }
-.chat-msg{
-  font-weight:100; 
-  margin-left:40px; 
-  padding:0%
-}
+
+p.chat-msg {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  margin-left: 40px;
+  }
 .chat-date{
   float: right !important;
 }
