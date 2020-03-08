@@ -126,7 +126,6 @@ return [
     '' => '',
 
     //Validation messages
-    //1-UserRequest
     'name_required' => 'من فضلك ادخل اسم المستخدم',
     'email_required_without' => 'من فضلك ادخل البريد الالكترونى  او الهاتف',
     'email_incorrect' => 'صيغة البريد الالكترونى غير صحيحه',
@@ -135,8 +134,15 @@ return [
     'password_min' => 'كلمة المرور من 6 احرف على الاقل',
     'required_with' => 'من فضلك ادخل كلمة المرور',
     'password_same' => 'كلمة المرور ليست مطابقه',
-    //2-UpdateUserRequest
-    '' => '',
+    'phone_required' => 'من فضلك ادخل الهاتف',
+    'phone_unique' => 'هذا الرقم مسجل من قبل',
+    'title_required' => 'من فضلك ادخل عنوان للمنشور',
+    'description_required' => 'من فضلك ادخل الوصف',
+    'location_required' => 'من فضلك ادخل الموقع',
+    'place_required' => 'من فضلك ادخل المكان',
+    'category_id_required' => 'من فضلك اختر النوع',
+    'image_required' => 'من فضلك ضع صوره',
+    'image_array' => 'من فضلك قم بتحميل صوره واحده على الاقل و ثلاثه على الاكثر',
     '' => '',
     '' => '',
     '' => '',

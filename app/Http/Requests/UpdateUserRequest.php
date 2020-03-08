@@ -25,8 +25,16 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required_if:phone,null',
-            'phone' => 'required_if:email,null',
+            'email' => 'required_without:phone',
+            'phone' => 'required_without:email',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => trans('admin.name_required'),
+            'email.required_without' => trans('admin.email_required_without'),
+            'phone.required_without' => trans('admin.phone_required_without'),
         ];
     }
 }

@@ -130,7 +130,6 @@ return [
     '' => '',
 
     //Validation messages
-    //1-UserRequest
     'name_required' => 'Please enter user name',
     'email_required_without' => 'Please enter email or phone',
     'email_incorrect' => 'Email format is incorrect',
@@ -139,4 +138,18 @@ return [
     'password_min' => 'Password must be at least 6 letters',
     'required_with' => 'Please enter password',
     'password_same' => 'Password mismatch',
+    'phone_required' => 'Please enter phone',
+    'phone_unique' => 'Phone number registered before',
+    'title_required' => 'Please enter post title',
+    'location_required' => 'Please enter location',
+    'place_required' => 'Please enter place',
+    'category_id_required' => 'Please select a category',
+    'image_required' => 'Please choose image',
+    'image_array' => 'Please upload at least 1 image and at most 3 images',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
 ];
