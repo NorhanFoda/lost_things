@@ -68,10 +68,10 @@ Route::group([
     Route::post('search', 'api\SearchController@search');
 
     //Chat
-    Route::get('get_user_messages', 'api\ChatController@getUserMessages');
-    Route::get('fetch_messages', 'api\ChatController@fetchMessages');
+    Route::get('get_chats_list', 'api\ChatController@getChatsList');//index page
+    Route::get('get_chat', 'api\ChatController@getChat');//get chat page
     Route::post('send_messages', 'api\ChatController@sendMessages');//send message to admin
-    Route::delete('delete_messages/{id}', 'api\ChatController@deleteMessages');
+    Route::delete('delete_chat', 'api\ChatController@deleteChat');
 
     //conditions and rules
     Route::get('get_conditions', 'api\ConditionsController@getConditions');

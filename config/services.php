@@ -36,8 +36,8 @@ return [
     'firebase' => [
         'api_key' => 'API_KEY', // Only used for JS integration
         'auth_domain' => 'AUTH_DOMAIN', // Only used for JS integration
-        'database_url' => 'https://chat-5506c.firebaseio.com/',
-        'secret' => '90hVVHE9fZpNUoKk8eYoxw2HVvGlrXOmIfQatyUb',
+        'database_url' => 'https://lostschat.firebaseio.com',
+        'secret' => '7H4msC6sCDrhfNs8u0CbcRYrqi2L7XmBCFxtzynh',
         'storage_bucket' => 'STORAGE_BUCKET', // Only used for JS integration
     ]
 

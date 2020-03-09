@@ -65,6 +65,8 @@
 			var chat_element = "";
 			if(snapshot.val() != null) {
                 var shot = snapshot.val();
+				first_index = Object.keys(shot)[0];
+				next = Object.keys(shot)[1];
 				last_index = Object.keys(shot)[Object.keys(shot).length - 2];
                 for(let index in shot){
                     var chat_name = '{{auth()->user()->name}}';
@@ -79,7 +81,7 @@
 						users_name[index] = chat_name;
 						chat_element += '<div class="chat-2" style="margin:10px; text-align: left;">';
 						if(shot[index].image !=null){
-							chat_element += `<div style="vertical-align: text-top;">
+							chat_element += `<div>
 									 <div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
 									 </div>
 									 <img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
@@ -97,12 +99,15 @@
 						chat_element += `</div>`;	
 					}
 
+					//receiver
 					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 0){
 						chat_content = shot[index].message;
 						users_name[index] = chat_name;
 
 						chat_element += '<div>';
-						// if(shot[last_index].type == 0){
+						// if(next != last_index && shot[index].type == 0 && shot[next].user_id == shot[index].user_id){
+						// 	console.log('current:  '+ shot[index].user_id);
+						// 	console.log('next:  '+ shot[next].user_id);
 						// 	chat_element += `<div>`+chat_content+`</div><br>`;
 						// }
 						// else{

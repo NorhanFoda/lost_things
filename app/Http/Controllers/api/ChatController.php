@@ -16,29 +16,20 @@ class ChatController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function fetchMessages(){
+    //get all users with theri messages
+    public function getChatsList(){
+        $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->pluck('id');
+        $messages = Message::with('user')->whereIn('chat_id', $chats)->get();
         return response()->json([
-            'date' => auth()->user()->messages
+            'data' => $messages
         ], 200);
     }
 
-    public function getUserMessages(Request $request){
-        $this->validate($request,[
-            'sender' => 'required',
-            'receiver' => 'required'
-        ]);
-
-        $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
-                ->orWhere(['user2_id' => $request->sender, 'user1_id' => $request->receiver])->first();
-        if($chat){
-           $msg = Message::where('chat_id', $chat->id) ->get();
-           return response()->json([
-                'data' => $msg
-           ], 200);
-        }
-        else{
-            return response()->json(null, 404);
-        }
+    public function getChat(Request $request){
+        $messages = Message::where('chat_id' , $request->chat_id)->get();
+        return response()->json([
+            'data' => $messages
+        ], 200);
     }
 
     public function sendMessages(Request $request){
@@ -47,18 +38,26 @@ class ChatController extends Controller
             'sender' => 'required',
             'receiver' => 'required',
             'message' => 'required_without:image',
-            'image' => 'required_without:message'
+            'image' => 'required_without:message',
+            'chat_id' => 'sometimes'
         ]);
 
-        //find users chating channel
-        $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
-                    ->orWhere(['user2_id' => $request->sender, 'user1_id' => $request->receiver])->first();
-        //if there is no channel then create one
-        if(!$chat){
-            $chat = Chat::create([
-                'user1_id' => $request->sender, //sender
-                'user2_id' => $request->receiver //receiver
-            ]);
+        if($request->sender != auth()->user()->id){
+            return response()->json([
+                'error' => 'not allowed to send messages'
+            ], 400);
+        }
+
+        if($request->chat_id == null){
+            $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
+                                ->orWhere(['user2_id' => $request->sender, 'user2_id' => $request->receiver])->first();
+            if(!$chat){
+                $chat = Chat::create([
+                    'user1_id' => $request->sender, //sender
+                    'user2_id' => $request->receiver //receiver
+                ]);
+            }
+            $request->chat_id = $chat->id;
         }
 
         if($request->image != null){
@@ -89,20 +88,20 @@ class ChatController extends Controller
 
         //create sender messages
         $sent = Message::create([
-            'user_id' => $chat->user1_id,
+            'user_id' => $request->sender,
             'message' => $request->message,
             'image' => $image,
             'type' => 0,
-            'chat_id' => $chat->id
+            'chat_id' => $request->chat_id
         ]);
 
         //create reciever messages
         $received = Message::create([
-            'user_id' => $chat->user2_id,
+            'user_id' => $request->receiver,
             'message' => $request->message,
             'image' => $image,
             'type' => 1,
-            'chat_id' => $chat->id
+            'chat_id' => $request->chat_id
         ]);
 
         return response()->json([
@@ -110,8 +109,12 @@ class ChatController extends Controller
         ], 201);
     }
 
-    public function deleteMessages($id){
-        Message::find($id)->delete();
+    public function deleteChat(Request $request){
+        $this->validate($request, [
+            'chat_id' => 'required'
+        ]);
+        Message::where('chat_id', $request->chat_id)->delete();
+        Chat::find($request->chat_id)->delete();
         return response()->json(null, 204);
     }
 }
