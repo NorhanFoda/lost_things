@@ -2,9 +2,9 @@
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" target="_blank" href="#">
-                    <div class="brand-logo"><img src="{{asset(('admin/app-assets/images/logo/freuchi-logo.png'))}}" alt="logo"/></div>
-                    {{-- <h2 class="brand-text mb-0">ferrucci</h2> --}}
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="/ar">
+                    {{-- <div class="brand-logo"><img src="{{asset(('admin/app-assets/images/logo/freuchi-logo.png'))}}" alt="logo"/></div> --}}
+                    <h2 class="brand-text mb-0">{{trans('admin.lost_app')}}</h2>
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i></a></li>
         </ul>
