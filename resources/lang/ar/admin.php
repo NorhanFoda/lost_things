@@ -43,7 +43,7 @@ return [
     //posts translations
     'posts' => 'المنشورات',
     'title' => 'عنوان المنشور',
-    'user' => 'المتستخدم',
+    'user' => 'المستخدم',
     'location' => 'الموقع',
     'published_at' => 'تاريخ النشر',
     'category' => 'النوع',

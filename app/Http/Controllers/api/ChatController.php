@@ -29,7 +29,7 @@ class ChatController extends Controller
     public function getChat(Request $request){
         $messages = Message::where('chat_id' , $request->chat_id)->get();
         return response()->json([
-            'data' => new ChatResource(Chat::find($request->chat_id))
+            'dat' => new ChatResource(Chat::find($request->chat_id))
         ], 200);
     }
 

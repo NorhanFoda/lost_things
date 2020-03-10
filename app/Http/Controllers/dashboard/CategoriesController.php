@@ -47,7 +47,7 @@ class CategoriesController extends Controller
         $url = url('/images/'.$file_name_to_store);
         Image::create(['path' => $url, 'post_id' => $cat->id]);
 
-        session()->flash('message', trans('admin.caregory_created'));
+        session()->flash('message', trans('admin.category_created'));
         return redirect()->route('categories.getCategory');
     }
 
