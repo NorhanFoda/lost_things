@@ -38,6 +38,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	//3-delete post
 	Route::post('delete_post', 'dashboard\LostController@deletePost')->name('losts.delete')->middleware('auth:web');
 
+	//Categories
+	Route::get('get_categories', 'dashboard\CategoriesController@getCategories')->name('categories.getCategory')->middleware('auth:web');
+	Route::get('add_category', 'dashboard\CategoriesController@addCategory')->name('categories.addCategory')->middleware('auth:web');
+	Route::post('store_category', 'dashboard\CategoriesController@storeCategory')->name('categories.storeCategory')->middleware('auth:web');
+	Route::get('edit_categories/{id}', 'dashboard\CategoriesController@editCategory')->name('categories.editCategory')->middleware('auth:web');
+	Route::put('update_categories/{id}', 'dashboard\CategoriesController@updateCategory')->name('categories.updateCategory')->middleware('auth:web');
+	Route::post('delete_categories', 'dashboard\CategoriesController@deleteCategory')->name('categories.deleteCategory')->middleware('auth:web');
+
 	//conditions and rules
 	Route::resource('conditions', 'dashboard\ConditionsController')->middleware('auth:web');
 	Route::post('delete_condition', 'dashboard\ConditionsController@deleteCondition')->name('conditions.delete')->middleware('auth:web');
