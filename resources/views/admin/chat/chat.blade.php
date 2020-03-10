@@ -1,4 +1,3 @@
-{{-- {{dd(\App\USer::find($user_id)->image)}} --}}
 @extends('admin.layouts.app')
 
 @section('pageTitle')

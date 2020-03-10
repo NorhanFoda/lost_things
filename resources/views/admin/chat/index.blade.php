@@ -52,25 +52,32 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(count($users) > 0)
-                                    @foreach($users as $user)
+                                @if(count($chats) > 0)
+                                    @foreach($chats as $chat)
                                         <tr>
-                                            @if(count($user->messages) > 0)
+                                            @if(count($chat->messages) > 0)
                                                 <td align="center">{{$loop->iteration}}</td>
                                                 <td>
-                                                    <a href="{{route('chat.getChat', $user->messages[count($user->messages) - 1]->chat_id)}}" style="color:white">
+                                                    <a href="{{route('chat.getChat', $chat->id)}}" style="color:white">
                                                         <div style="vertical-align:text-top">
-                                                            <img src="{{$user->image ? $user->image : '/images/avatar.png'}}" 
-                                                                alt="{{$user->name}}" 
+                                                            @if($chat->user1_id != auth()->user()->id)
+                                                                <img src="{{\App\User::find($chat->user1_id)->image ? \App\User::find($chat->user1_id)->image : '/images/avatar.png'}}" 
+                                                                alt="{{\App\User::find($chat->user1_id)->name}}" 
                                                                 class="round" width="40" height="40">
-                                                            <span style="font-weight:bolder">{{$user->name}}</span><br>
-                                                            <p class="chat-msg">{{$user->messages[count($user->messages) - 1]->message}}</p>
-                                                            <small class="chat-date">{{$user->messages[count($user->messages) - 1]->created_at->diffForHumans(\Carbon\Carbon::now())}}</small>
+                                                                <span style="font-weight:bolder">{{\App\User::find($chat->user1_id)->name}}</span><br>
+                                                            @else
+                                                                <img src="{{\App\User::find($chat->user2_id)->image ? \App\User::find($chat->user2_id)->image : '/images/avatar.png'}}" 
+                                                                alt="{{\App\User::find($chat->user2_id)->name}}" 
+                                                                class="round" width="40" height="40">
+                                                                <span style="font-weight:bolder">{{\App\User::find($chat->user2_id)->name}}</span><br>
+                                                            @endif
+                                                            <p class="chat-msg">{{$chat->messages[count($chat->messages) - 1]->message}}</p>
+                                                            <small class="chat-date">{{$chat->messages[count($chat->messages) - 1]->created_at->diffForHumans(\Carbon\Carbon::now())}}</small>
                                                         </div>
                                                     </a>
                                                 </td>
                                                 <td style="text-align:center;">
-                                                    <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$user->messages[0]->chat_id}}'
+                                                    <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$chat->id}}'
                                                         class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                 </td>
                                             @endif
