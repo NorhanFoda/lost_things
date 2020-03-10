@@ -8,6 +8,8 @@ use App\User;
 use App\Models\Message;
 use App\Models\Chat;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\ChatResourceCollection;
+use App\Http\Resources\ChatResource;
 
 class ChatController extends Controller
 {
@@ -18,17 +20,16 @@ class ChatController extends Controller
 
     //get all users with theri messages
     public function getChatsList(){
-        $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->pluck('id');
-        $messages = Message::with('user')->whereIn('chat_id', $chats)->get();
+        $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->get();
         return response()->json([
-            'data' => $messages
+            'data' => ChatResourceCollection::collection($chats)
         ], 200);
     }
 
     public function getChat(Request $request){
         $messages = Message::where('chat_id' , $request->chat_id)->get();
         return response()->json([
-            'data' => $messages
+            'data' => new ChatResource(Chat::find($request->chat_id))
         ], 200);
     }
 

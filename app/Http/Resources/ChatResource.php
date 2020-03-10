@@ -9,10 +9,10 @@ use App\Http\Resources\MessageResourceCollection;
 use App\Http\Resources\UserResource;
 use App\User;
 
-class ChatResourceCollection extends JsonResource
+class ChatResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -22,7 +22,6 @@ class ChatResourceCollection extends JsonResource
         $messages = MessageResourceCollection::collection(Message::with('user')
                     ->where(['chat_id' => $this->id, 'user_id' => auth()->user()->id])->get());
 
-        $last_message = new MessageResourceCollection($messages[count($messages) - 1]);
         $user1 = User::find($this->user1_id);
         $user2 = User::find($this->user2_id);
 
@@ -30,7 +29,7 @@ class ChatResourceCollection extends JsonResource
             'auth_user' => $this->user1_id == $user1->id ? new UserResource($user1) : new UserResource($user2),
             'other_user' => $this->user1_id == $user1->id ? new UserResource($user2) : new UserResource($user1),
             'chat_id' => $this->id,
-            'last_message' => $last_message
+            'messages' => $messages
         ];
     }
 }

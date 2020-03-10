@@ -49,7 +49,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	Route::get('get_messages', 'dashboard\MessageController@getMessages')->name('chat.index')->middleware('auth:web');
 	Route::get('get_chat_page/{id}', 'dashboard\MessageController@getChatPage')->name('chat.getChat')->middleware('auth:web');
 	Route::post('chat', 'dashboard\MessageController@store')->name('chat.store')->middleware('auth:web');
-	// Route::post('chat/join', 'dashboard\MessageController@join')->name('chat.join')->middleware('auth:web');
 	Route::post('delete_chat', 'dashboard\MessageController@deleteChat')->name('chats.delete')->middleware('auth:web');
 
 	//change lang

@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\AccountActivated;
+use App\Models\Chat;
 
 class MessageController extends Controller
 {
@@ -19,8 +20,9 @@ class MessageController extends Controller
     }
 
     public function getMessages(){
+        // $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->get();
         $users = User::with('messages')->where('id', '!=', auth()->user()->id)->get();
-        return view('admin.chat.index')->with('users', $users);
+        return view('admin.chat.index')->with('users', $chats);
     }
 
     public function getChatPage($id){
