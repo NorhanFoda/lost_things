@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.app')
 
 @section('pageTitle')
@@ -68,60 +69,62 @@
 				next = Object.keys(shot)[1];
 				last_index = Object.keys(shot)[Object.keys(shot).length - 2];
                 for(let index in shot){
-                    var chat_name = '{{auth()->user()->name}}';
+                    if(shot[index].chat_id == {{$chat_id}}){
+						var chat_name = '{{auth()->user()->name}}';
 					
-					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 1){
-						continue;
-					}
-
-					//sender
-					else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 0){
-						chat_content = shot[index].message;
-						users_name[index] = chat_name;
-						chat_element += '<div class="chat-2" style="margin:10px; text-align: left;">';
-						if(shot[index].image !=null){
-							chat_element += `<div>
-									 <div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
-									 </div>
-									 <img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
-									<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
-									</div><br>`;
+						if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 1){
+							continue;
 						}
-						else{
-							chat_element += `<div>
-									 <div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
-									 </div>
-									<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
-									</div><br>`;
-						}
-						
-						chat_element += `</div>`;	
-					}
 
-					//receiver
-					if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 0){
-						chat_content = shot[index].message;
-						users_name[index] = chat_name;
-
-						chat_element += '<div>';
-						// if(next != last_index && shot[index].type == 0 && shot[next].user_id == shot[index].user_id){
-						// 	console.log('current:  '+ shot[index].user_id);
-						// 	console.log('next:  '+ shot[next].user_id);
-						// 	chat_element += `<div>`+chat_content+`</div><br>`;
-						// }
-						// else{
-							chat_element += `<div  style="margin:10px;">
-											<img class='round' height='30' width='30' src=`+'{{auth()->user()->image ? auth()->user()->image : "/images/avatar.png"}}'+` alt='no image'/>
-											<div style="background:#00000069; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;">	`+chat_content+`</div>
+						//sender
+						else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 0){
+							chat_content = shot[index].message;
+							users_name[index] = chat_name;
+							chat_element += '<div class="chat-2" style="margin:10px; text-align: left;">';
+							if(shot[index].image !=null){
+								chat_element += `<div>
+										<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
+										</div>
+										<img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
+										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
 										</div><br>`;
-						// }
-						chat_element += '</div>';
+							}
+							else{
+								chat_element += `<div>
+										<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
+										</div>
+										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
+										</div><br>`;
+							}
+							
+							chat_element += `</div>`;	
+						}
 
+						//receiver
+						if(shot[index].user_id == '{{auth()->user()->id}}' && shot[index].type == 0){
+							chat_content = shot[index].message;
+							users_name[index] = chat_name;
+
+							chat_element += '<div>';
+							// if(next != last_index && shot[index].type == 0 && shot[next].user_id == shot[index].user_id){
+							// 	console.log('current:  '+ shot[index].user_id);
+							// 	console.log('next:  '+ shot[next].user_id);
+							// 	chat_element += `<div>`+chat_content+`</div><br>`;
+							// }
+							// else{
+								chat_element += `<div  style="margin:10px;">
+												<img class='round' height='30' width='30' src=`+'{{auth()->user()->image ? auth()->user()->image : "/images/avatar.png"}}'+` alt='no image'/>
+												<div style="background:#00000069; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;">	`+chat_content+`</div>
+											</div><br>`;
+							// }
+							chat_element += '</div>';
+
+						}
+						else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 1){
+							continue;
+						}
+						$(".card-body").html(chat_element);
 					}
-					else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 1){
-						continue;
-					}
-					$(".card-body").html(chat_element);
 				}
 	
 			}else{

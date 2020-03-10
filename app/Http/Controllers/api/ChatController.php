@@ -34,7 +34,9 @@ class ChatController extends Controller
     }
 
     public function sendMessages(Request $request){
-
+        
+        // dd($request->all());
+        
         $this->validate($request, [
             'sender' => 'required',
             'receiver' => 'required',
@@ -50,8 +52,9 @@ class ChatController extends Controller
         }
 
         if($request->chat_id == null){
-            $chat = Chat::where(['user1_id' => $request->sender, 'user2_id' => $request->receiver])
-                                ->orWhere(['user2_id' => $request->sender, 'user2_id' => $request->receiver])->first();
+            $chat = Chat::Where([['user1_id' , $request->sender], ['user2_id' , $request->receiver]])
+                                ->orWhere([['user2_id' , $request->sender] , ['user1_id' , $request->receiver]])->first();
+            // dd($chat);
             if(!$chat){
                 $chat = Chat::create([
                     'user1_id' => $request->sender, //sender
