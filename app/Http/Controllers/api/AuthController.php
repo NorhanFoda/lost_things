@@ -53,17 +53,20 @@ class AuthController extends Controller
     public function loginPhone(Request $request)
     {
         //user is not verified so he can not login
-        if(User::where('phone', $request->phone)->first()->is_verified == 0){
+        $user = User::where('phone', $request->phone)->first();
+        if($user->is_verified == 0){
             return response()->json([
                 'error' => "this account is not verified"
             ], 400);
         }
         
         $credentials = $request->only('phone', 'password');
-        // dd($credentials);
-        if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+        
+        if($user->token == null){
+            $user->update(['token' => $this->guard()->attempt($credentials)]);
         }
+
+        return $this->respondWithToken($user);
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
@@ -95,17 +98,24 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         //user is not verified so he can not login
-        if(User::where('email', $request->email)->first()->is_verified == 0){
+        $user = User::where('email', $request->email)->first();
+        if($user->is_verified == 0){
             return response()->json([
                 'error' => "this account is not verified"
             ], 400);
         }
-        
+
         $credentials = $request->only('email', 'password');
 
-        if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+        if($user->token == null){
+            $user->update(['token' => $this->guard()->attempt($credentials)]);
         }
+
+        return $this->respondWithToken($user);
+
+        // if ($token = $this->guard()->attempt($credentials)) {
+        //     return $this->respondWithToken($token);
+        // }
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
@@ -127,6 +137,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        auth()->user()->update(['token' => null]);
         $this->guard()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
@@ -139,7 +150,8 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken($this->guard()->refresh());
+        return $this->respondWithToken(auth()->user()->token);
+        // return $this->respondWithToken($this->guard()->refresh());
     }
 
     /**
@@ -149,13 +161,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($user)
     {
+        // dd($user);
         return response()->json([
-            'access_token' => $token,
+            'access_token' => $user->token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => $user
         ]);
     }
 

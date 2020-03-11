@@ -314,7 +314,24 @@ p.chat-msg {
 progress {
   vertical-align : baseline;
 }
-
+.chat-left1{
+  padding-left:40px !important ;
+  position: relative !important;
+  text-align: left !important;
+}
+ .uesr-chat1{
+  position: absolute !important;
+  left: 0px !important;
+  top: 0px !important;
+}
+.text-chet1{
+  background:#cb292fb3; padding:10px; 
+  min-width:40%;
+  width:100% !important;
+  border-radius:20px;
+  margin: 10px 0px !important ;
+  
+}
 [type='number']::-webkit-inner-spin-button, [type='number']::-webkit-outer-spin-button {
   height : auto;
 }

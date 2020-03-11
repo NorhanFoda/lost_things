@@ -81,21 +81,33 @@
 							chat_content = shot[index].message;
 							users_name[index] = chat_name;
 							chat_element += '<div class="chat-2" style="margin:10px; text-align: left;">';
-							if(shot[index].image !=null){
-								chat_element += `<div>
-										<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
-										</div>
-										<img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
-										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
-										</div><br>`;
+							if(shot[index].image !=null && shot[index].message != null){
+								chat_element += `<div class="chat-left1">
+													<div  class="text-chet1">`+shot[index].message+` 
+													</div>
+													<img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
+													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
+												</div><br>`;
 							}
-							else{
-								chat_element += `<div>
-										<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
-										</div>
-										<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
-										</div><br>`;
+							else if(shot[index].image !=null && shot[index].message == null){
+								chat_element += `<div class="chat-left1">
+													<img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
+													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
+												</div><br>`;
+							}else if(shot[index].image ==null && shot[index].message != null){
+								chat_element += `<div class="chat-left1">
+													<div  class="text-chet1">`+shot[index].message+` 
+													</div>
+													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
+												</div><br>`;
 							}
+							// else{
+							// 	chat_element += `<div>
+							// 			<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
+							// 			</div>
+							// 			<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
+							// 			</div><br>`;
+							// }
 							
 							chat_element += `</div>`;	
 						}

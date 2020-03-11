@@ -203,6 +203,26 @@ button:focus {
     background: #00000069 !important;
     padding: 10px 10px 10px !important;
 }
+.chat-left1{
+  padding-right:40px !important ;
+  position: relative !important;
+  text-align: right !important;
+
+}
+ .uesr-chat1{
+  position: absolute !important;
+  left: auto !important;
+  right: 0px;
+  top: 0px !important;
+}
+.text-chet1{
+  background:#cb292fb3; padding:10px; 
+  min-width:40%;
+  width:100% !important;
+  border-radius:20px;
+  margin: 10px 0px !important ;
+  
+}
 
 p.chat-msg {
   white-space: nowrap; 
