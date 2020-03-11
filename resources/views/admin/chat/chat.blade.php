@@ -14,7 +14,7 @@
     <div class="wrapper">
         <div class="card" style="width:70%; margin:auto;">
             <div class="card-header chet-header">
-                <div class="users">Loading users ...</div>
+				<div class="users">Loading users ...</div>
             </div>
             <div class="card-body">
 				{{-- <div class="chat-item"></div> --}}
@@ -47,6 +47,15 @@
 			$(".card-body").scrollTop(card_height);
 		}
 
+		var escapeHtml = function(unsafe) {
+		    return unsafe
+		         .replace(/&/g, "&amp;")
+		         .replace(/</g, "&lt;")
+		         .replace(/>/g, "&gt;")
+		         .replace(/"/g, "&quot;")
+		         .replace(/'/g, "&#039;");
+		 }
+
 		// Initialize Firebase
 		var config = {
 			apiKey: '{{config('services.firebase.api_key')}}',
@@ -78,12 +87,13 @@
 
 						//sender
 						else if(shot[index].user_id != '{{auth()->user()->id}}' && shot[index].type == 0){
-							chat_content = shot[index].message;
+							// chat_content = shot[index].message;
 							users_name[index] = chat_name;
 							chat_element += '<div class="chat-2" style="margin:10px; text-align: left;">';
 							if(shot[index].image !=null && shot[index].message != null){
+								chat_content = escapeHtml(shot[index].message);
 								chat_element += `<div class="chat-left1">
-													<div  class="text-chet1">`+shot[index].message+` 
+													<div  class="text-chet1">`+chat_content+` 
 													</div>
 													<img class='round' height='150' width='150' src='`+shot[index].image+`' alt='no image'/>
 													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
@@ -95,20 +105,13 @@
 													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
 												</div><br>`;
 							}else if(shot[index].image ==null && shot[index].message != null){
+								chat_content = escapeHtml(shot[index].message);
 								chat_element += `<div class="chat-left1">
-													<div  class="text-chet1">`+shot[index].message+` 
+													<div  class="text-chet1">`+chat_content+` 
 													</div>
 													<img  class='round uesr-chat1'  height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
 												</div><br>`;
-							}
-							// else{
-							// 	chat_element += `<div>
-							// 			<div style="background:#cb292fb3; padding:10px; min-width:40%; max-width:80%; display:inline-block; border-radius:20px; vertical-align: text-top;" >`+shot[index].message+` 
-							// 			</div>
-							// 			<img class='round' height='30' width='30' src='`+'{{\App\User::find($user_id)->image ? \App\User::find($user_id)->image : "/images/avatar.png"}}'+`' alt='no image'/>
-							// 			</div><br>`;
-							// }
-							
+							}							
 							chat_element += `</div>`;	
 						}
 
@@ -153,6 +156,8 @@
 			}
 
 			$(".card-header .users").html(html_name.substring(0, html_name.length - 2));
+			$(".card-header").append("<img class='round uesr-chet-2 ' height='30' width='30' src='{{auth()->user()->image ? auth()->user()->image : '/images/avatar.png'}}' alt='no image'/>");
+
 			old_users_val = $(".users").html();
 
 			scroll_bottom();

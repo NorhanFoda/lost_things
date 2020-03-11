@@ -298,7 +298,14 @@ legend {
 }
 .chet-header{
   background: #00000069 !important;
-  padding: 10px 10px 10px !important;
+  padding: 15px 65px 15px !important;
+  position: relative;
+}
+.chet-header img{
+  text-align: right !important;
+  position: absolute;
+  right: 30px;
+
 }
 
 p.chat-msg {
@@ -333,7 +340,9 @@ progress {
   right: auto !important;
   border-radius:20px;
   margin: 10px  185px 10px 0px !important ;
-  
+}
+.uesr-chet-2{
+text-align: right;
 }
 [type='number']::-webkit-inner-spin-button, [type='number']::-webkit-outer-spin-button {
   height : auto;

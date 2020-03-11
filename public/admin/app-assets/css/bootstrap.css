@@ -200,8 +200,15 @@ button:focus {
   outline: 5px auto -webkit-focus-ring-color; }
 
 .chet-header{
-    background: #00000069 !important;
-    padding: 10px 10px 10px !important;
+  background: #00000069 !important;
+  padding: 15px 65px 15px !important;
+  position: relative;
+}
+.chet-header img{
+  text-align: left !important;
+  position: absolute;
+  left: 30px;
+
 }
 .chat-left1{
   padding-right:40px !important ;
