@@ -218,9 +218,9 @@ button:focus {
 .text-chet1{
   background:#cb292fb3; padding:10px; 
   min-width:40%;
-  width:100% !important;
+  width:70% !important;
   border-radius:20px;
-  margin: 10px 0px !important ;
+  margin: 10px 0px 10px 185px  !important ;
   
 }
 
