@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Block;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Auth;
@@ -159,6 +160,7 @@ class UserController extends Controller
             //block uder
             if($request->status == 0){
                 User::find($request->id)->update(['is_blocked' => 1]);
+                Block::create(['user_id' => auth()->user()->id, 'blocked_id' => $request->id]);
                 return response()->json([
                     'data' => 1,
                 ], 200);
@@ -166,6 +168,10 @@ class UserController extends Controller
             //unblock user
             else if($request->status == 1){
                 User::find($request->id)->update(['is_blocked' => 0]);
+                $blocks = Block::where('blocked_id', $request->id)->get();
+                foreach($blocks as $block){
+                    $block->delete();
+                }
                 return response()->json([
                     'data' => 0,
                 ], 200);
