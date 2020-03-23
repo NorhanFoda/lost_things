@@ -8,6 +8,7 @@ use App\User;
 use App\Models\Block;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 
 class UserController extends Controller
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users =  User::where('is_admin', '!=', '1')->get();
+        $users =  User::where('is_admin', '!=', '1')->paginate(5);
         return view('admin.users.index',compact('users'));
     }
 
@@ -45,17 +46,17 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if($request->phone != null){
-            $phone_rules = array(
-                'phone' => 'regex:/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/',
-            );
-            $phone_to_validate = array('phone' => $request->phone);
-            $phoneValidator = Validator::make($phone_to_validate, $phone_rules);
-            if ($phoneValidator->fails()) {
-                // return $phoneValidator->messages();
-                return redirect()->route('users.index')->with('error', trans('phone_regex'));
-            }
-        }
+        // if($request->phone != null){
+        //     $phone_rules = array(
+        //         'phone' => 'regex:/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})',
+        //     );
+        //     $phone_to_validate = array('phone' => $request->phone);
+        //     $phoneValidator = Validator::make($phone_to_validate, $phone_rules);
+        //     if ($phoneValidator->fails()) {
+        //         return $phoneValidator->messages();
+        //         return redirect()->route('users.index')->with('error', trans('phone_regex'));
+        //     }
+        // }
 
         $user = User::create($request->all());
         if($request->image != null){
@@ -148,10 +149,30 @@ class UserController extends Controller
 
     public function delete(Request $request){
         if($request->ajax()){
-            User::find($request->id)->delete();
-            return response()->json([
-                'data' => 1,
-            ], 200);
+            $user = User::find($request->id);
+            if($user){
+                if(count($user->posts) > 0){
+                    return response()->json([
+                        'data' => 0,
+                    ], 200);    
+                }
+                else{
+                    $image = $user->image;
+                    if($image != null){
+                        $file_name = pathinfo($image, PATHINFO_FILENAME);
+                        $extension = substr($image,strrpos($image,'.'));
+                        $full_name = $file_name.$extension;
+                        $file_path = 'images/'.$full_name;
+                        if(\File::exists($file_path)){
+                            \File::delete($file_path);
+                        }   
+                    }
+                    $user->delete();
+                    return response()->json([
+                        'data' => 1,
+                    ], 200);   
+                }   
+            }
         }
     }
 

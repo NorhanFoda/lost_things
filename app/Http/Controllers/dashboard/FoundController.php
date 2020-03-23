@@ -22,7 +22,7 @@ class FoundController extends Controller
      */
     public function getfounds()
     {
-        return view('admin.founds.index')->with('founds', Post::where('found', 1)->get());
+        return view('admin.founds.index')->with('founds', Post::where('found', 1)->paginate(5));
     }
 
     /**
@@ -51,8 +51,7 @@ class FoundController extends Controller
             'place' => $request->place,
             'category_id' => $request->category_id,
             'found' => 1,
-            // 'user_id' => auth()->user()->id,
-            'user_id' => 1, //مؤقتا
+            'user_id' => auth()->user()->id,
             'published_at' => date("Y-m-d", strtotime(Carbon::now())),
         ]);
         session()->flash('message', trans('admin.post_created'));

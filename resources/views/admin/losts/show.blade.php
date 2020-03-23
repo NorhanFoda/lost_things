@@ -43,23 +43,25 @@
                                         alt="avatar" style="width:150px; height:150px">
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row">
                             <div class="col-12 col-sm-9 col-md-6 col-lg-5">
                                 <table>
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.category')}}</td>
-                                        <td>{{$post->category->title}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$post->category->title}}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.location')}}</td>
-                                        <td>{{$post->location}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$post->location}}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.place')}}</td>
-                                        <td>{{$post->place}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$post->place}}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.status')}}</td>
-                                        <td>@if($post->found == 0) {{trans('admin.not_found')}} @endif</td>
+                                        <td style='margin: 5px; padding: 15px;'>@if($post->found == 0) {{trans('admin.not_found')}} @endif</td>
                                     </tr>
                                 </table>
                             </div>
@@ -67,11 +69,11 @@
                                 <table class="ml-0 ml-sm-0 ml-lg-0">
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.published_at')}}</td>
-                                        <td>{{$post->published_at}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$post->published_at}}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">{{trans('admin.user')}}</td>
-                                        <td>{{$post->user->name}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$post->user->name}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -86,7 +88,7 @@
             </div>
             <!-- account end -->
             <!-- information start -->
-            <div class="col-md-6 col-12 ">
+            <div class="col-md-12 col-12 ">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title mb-2">{{trans('admin.description')}}</div>

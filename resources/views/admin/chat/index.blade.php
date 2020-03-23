@@ -43,7 +43,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="table-responsive">
-                            {{-- <a href="{{route('founds.createFound')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a> --}}
+                            <!--<a href="{{route('founds.createFound')}}" class="btn btn-primary btn-block my-2 waves-effect waves-light">{{trans('admin.add_post')}} </a>-->
                             <table class="table table-bordered mb-0">
                                 <thead>
                                 <tr align="center">

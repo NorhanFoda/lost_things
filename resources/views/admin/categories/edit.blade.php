@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="input-group control-group increment" >
-                                                    <input type="file" name="image" class="form-control" accept=".gif, .jpg, .png, .webp" required>
+                                                    <input type="file" name="image" class="form-control" accept=".gif, .jpg, .png, .webp">
                                                     <div class="invalid-feedback">
                                                         {{trans('admin.please_enter_image')}}
                                                     </div>

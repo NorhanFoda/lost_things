@@ -8,7 +8,9 @@ use App\Models\Post;
 use App\Http\Resources\FoundResource;
 use App\Http\Resources\FoundResourceCollection;
 use App\Http\Requests\FoundRequest;
+use App\Http\Resources\UsersWithTokens;
 use Carbon\Carbon;
+use App\User;
 
 class FoundsController extends Controller
 {
@@ -23,8 +25,10 @@ class FoundsController extends Controller
      */
     public function index()
     {
-        return FoundResourceCollection::collection(Post::with('comments')->where('found', 1)
-                                                    ->where('category_id', '!=', null)->get());
+        return response()->json([
+            'data' => FoundResourceCollection::collection(Post::with('comments')->where('found', 1)
+                                                    ->where('category_id', '!=', null)->get())
+        ]);
     }
 
     /**
@@ -47,9 +51,18 @@ class FoundsController extends Controller
     {
         $post = Post::create($request->all());
         $post->update(['published_at' => Carbon::now()]);
+        
+        $users = User::where('location', $post->location)->get();
+        $users_with_tokens = array();
+        if($users){
+            foreach($users as $user){
+                $users_with_tokens[] = new UsersWithTokens($user);
+            }
+        }
 
         return response()->json([
-            'data' => 'Post created'
+            'users' => $users_with_tokens,
+            'post_id' => $post->id,
         ], 201);
     }
 
@@ -61,7 +74,9 @@ class FoundsController extends Controller
      */
     public function show($id)
     {
-        return new FoundResource(Post::find($id));
+        return response()->json([
+            'data' => new FoundResource(Post::find($id))
+        ]);
     }
 
     /**

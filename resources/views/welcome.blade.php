@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <h1>{{trans('admin.users')}}</h1>
+                    Laravel
                 </div>
 
                 <div class="links">

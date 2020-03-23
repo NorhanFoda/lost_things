@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-
+        
         @foreach($errors->all() as $error)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span style="color:red;">{{$error}}</span>
@@ -141,7 +141,8 @@
                                                 <span>{{trans('admin.image')}}</span>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="file" class="form-control" name="image" accept=".gif, .jpg, .png, .webp">
+                                                <input type="file" class="form-control" id="image" name="image" accept=".gif, .jpg, .png, .webp">
+                                                <div id="show_image"></div>
                                                 <div class="inavlid-feedback">
                                                     @error('image')
                                                         {{$message}}
@@ -165,3 +166,13 @@
     </div>
 
 @endsection
+
+<!--@section('scripts')-->
+<!--    <script>-->
+<!--        $(document).ready(function(){-->
+<!--            $('#image').on('change', function(){-->
+<!--                $('#show_image').append(`<img src=`+$('#image').val()+` width=40 height=40/>`);-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--@endsection-->

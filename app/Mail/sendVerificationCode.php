@@ -29,6 +29,6 @@ class sendVerificationCode extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.verificationCode')->with($this->code);
+        return $this->markdown('Email.verificationCode')->with($this->code);
     }
 }

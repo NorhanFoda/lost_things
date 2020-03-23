@@ -17,7 +17,19 @@ class BlockController extends Controller
     public function getBlockList(User $user)
     {
         $this->checkUserAuthorization($user->id);
-        return $user->blockList;
+        $list = $user->blockList;
+        $blocked_users = array();
+        foreach($list as $li){
+            $blocked = User::where('id', $li->blocked_id)->first();
+            array_push($blocked_users, $blocked);
+        }
+        return response()->json([
+            'data' => [
+                'block_list' => $list,
+                'blocking_user' => User::find($user->id),
+                'blocked_users' => $blocked_users
+            ]
+        ]);
     }
 
     public function blockUser(Request $request){

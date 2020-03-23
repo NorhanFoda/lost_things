@@ -41,7 +41,7 @@ Route::group([
     Route::post('change_location/{id}', 'api\EditProfileController@changeLocation');
     //4-Change date of birth
     Route::post('change_birth_date/{id}', 'api\EditProfileController@changeBirthDate');
-    //5-edit profile
+    //5-Edit profile
     Route::post('edit_profile', 'api\EditProfileController@editProfile');
 
     //Setting
@@ -75,6 +75,10 @@ Route::group([
 
     //conditions and rules
     Route::get('get_conditions', 'api\ConditionsController@getConditions');
+    
+    //Notification tokens
+    Route::get('/get_token/{id}', 'api\TokenController@index');
+    Route::post('/create_token', 'api\TokenController@create');
 
 });
 

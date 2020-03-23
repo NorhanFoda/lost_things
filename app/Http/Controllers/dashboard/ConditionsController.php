@@ -20,7 +20,7 @@ class ConditionsController extends Controller
      */
     public function index()
     {
-        return view('admin.conditions.index')->with('conditions', Condition::all());
+        return view('admin.conditions.index')->with('conditions', Condition::paginate(5));
     }
 
     /**

@@ -10,7 +10,9 @@ use App\Http\Resources\LostResource;
 use App\Http\Resources\LostResourceCollection;
 use App\Http\Requests\LostRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\UsersWithTokens;
 use Carbon\Carbon;
+use App\User;
 
 class LostsController extends Controller
 {
@@ -25,8 +27,10 @@ class LostsController extends Controller
      */
     public function index()
     {
-        return LostResourceCollection::collection(Post::with(['images', 'comments'])->where('found', 0)
-                                                    ->where('category_id', '!=', null)->get());
+        return response()->json([
+            'data' => LostResourceCollection::collection(Post::with(['images', 'comments'])->where('found', 0)
+                                                    ->where('category_id', '!=', null)->get())
+        ]);
     }
 
     /**
@@ -87,9 +91,19 @@ class LostsController extends Controller
             Image::create(['path' => $url, 'post_id' => $post->id]);
             // return response()->json(['url' => $url], 200);
         }
+        
+        $users = User::where('location', $post->location)->get();
+        $users_with_tokens = array();
+        if($users){
+            foreach($users as $user){
+                $users_with_tokens[] = new UsersWithTokens($user);
+            }
+        }
 
         return response()->json([
-            'data' => 'Post created'
+            'users' => $users_with_tokens,
+            'post_id' => $post->id,
+            'images' => $post->images
         ], 201);
     }
 
@@ -101,7 +115,9 @@ class LostsController extends Controller
      */
     public function show($id)
     {
-        return new LostResource(Post::find($id));
+        return response()->json([
+            'data' => new LostResource(Post::find($id))
+        ]);
     }
 
     /**
@@ -136,8 +152,21 @@ class LostsController extends Controller
     public function destroy($id)
     {
         $this->checkUserAuthorization(Post::find($id)->user_id);
-        if(Post::find($id)){
-            Post::find($id)->delete();
+        $post = Post::find($id);
+        if($post){
+            $images = $post->images;
+            foreach($images as $image){
+                $file_name = pathinfo($image, PATHINFO_FILENAME);
+                $extension = substr($image->path,strrpos($image->path,'.'));
+                $full_name = $file_name.$extension;
+                $file_path = 'images/'.$full_name;
+                if(\File::exists($file_path)){
+                    \File::delete($file_path);
+                }
+                
+                $image->delete();
+            }
+            $post->delete();
             return response()->json(null, 204);
         }
         return response()->json([

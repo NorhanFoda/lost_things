@@ -20,7 +20,6 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \App\Http\Middleware\CORS::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        // \App\Http\Middleware\CheckAdmin::class,
     ];
 
     /**
@@ -63,16 +62,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CORS' => \App\Http\Middleware\CORS::class,
-
+        
         /**** OTHER MIDDLEWARE ****/
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
-        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-
-        'CheckAdmin'              => \App\Http\Middleware\CheckAdmin::class,
-        'AdminLlogin'              => \App\Http\Middleware\AdminLlogin::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
     ];
 
     /**

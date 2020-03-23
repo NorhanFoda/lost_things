@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.app')
 
 @section('pageTitle')
@@ -74,6 +73,7 @@
 			var chat_element = "";
 			if(snapshot.val() != null) {
                 var shot = snapshot.val();
+                console.log(shot);
 				first_index = Object.keys(shot)[0];
 				next = Object.keys(shot)[1];
 				last_index = Object.keys(shot)[Object.keys(shot).length - 2];

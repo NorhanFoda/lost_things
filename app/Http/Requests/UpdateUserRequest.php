@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => 'required_without:email',
         ];
     }
-
+    
     public function messages(){
         return [
             'name.required' => trans('admin.name_required'),

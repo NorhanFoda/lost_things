@@ -25,7 +25,7 @@ class LostController extends Controller
      */
     public function getLosts()
     {
-        return view('admin.losts.index')->with('losts', Post::with('images', 'user')->where('found', 0)->where('category_id', '!=', null)->get());
+        return view('admin.losts.index')->with('losts', Post::with('images', 'user')->where('found', 0)->where('category_id', '!=', null)->paginate(5));
     }
 
     /**
@@ -62,8 +62,7 @@ class LostController extends Controller
             'location' => $request->location,
             'place' => $request->place,
             'category_id' => $request->category_id,
-            // 'user_id' => auth()->user()->id,
-            'user_id' => 1, //مؤقتا
+            'user_id' => auth()->user()->id,
             'published_at' => date("Y-m-d", strtotime(Carbon::now())),
         ]);
 
@@ -145,7 +144,7 @@ class LostController extends Controller
 
                 $free_space = 3 - count($post_images);
 
-                if(count($request->images) > $free_space){
+                if(count($request->images) >= $free_space){
                     for($i = 0; $i < $free_space; $i++){
 
                         //Validate image
@@ -211,11 +210,30 @@ class LostController extends Controller
 
     public function deletePost(Request $request){
         if($request->ajax()){
-            Post::find($request->id)->delete();
-            session()->flash('success', 'post deleted');
+            $post = Post::find($request->id);
+            if($post){
+                $images = $post->images; 
+                foreach($images as $image){
+                    $file_name = pathinfo($image, PATHINFO_FILENAME);
+                    $extension = substr($image->path,strrpos($image->path,'.'));
+                    $full_name = $file_name.$extension;
+                    $file_path = 'images/'.$full_name;
+                    if(\File::exists($file_path)){
+                        \File::delete($file_path);
+                    }
+                    $image->delete();
+                }
+                $post->delete();
+                session()->flash('success', 'post deleted');
+                return response()->json([
+                    'data' => 1,
+                ], 200);   
+            }
+        }
+        else{
             return response()->json([
-                'data' => 1,
-            ], 200);
+                'data' => 0,
+            ], 400);
         }
     }
 }

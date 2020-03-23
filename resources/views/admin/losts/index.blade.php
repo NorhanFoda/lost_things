@@ -67,7 +67,7 @@
                                         <td>{{$lost->location}}</td>
                                         <td>{{$lost->published_at}}</td>
                                         <td>
-                                            <img @if(count($lost->images) > 0) src="{{$lost->images[0]->path}}" @else src="no image" @endif alt="user" style="width:200px; height:100px">
+                                            <img @if(count($lost->images) > 0) src="{{$lost->images[0]->path}}" @else src="no image" @endif alt="user" style="width:100px; height:100px">
                                         </td>
                                         <td>
                                             <a href="{{route('losts.showLost', $lost->id)}}" class="btn" style="color:white"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -88,6 +88,7 @@
                 </div>
             </div>
         </div>
+        {{$losts->links()}}
     </div>
     </div>
     <!--end div-->
@@ -141,7 +142,7 @@
                                         type: 'success',
                                         title: '{{trans('admin.post_deleted')}}',
                                         showConfirmButton: false,
-                                        timer: 1500
+                                        timer: 2000
                                     });
                                     window.location.reload(); 
                                 }
@@ -154,7 +155,7 @@
                     swalWithBootstrapButtons.fire({
                         title: '{{trans('admin.alert_cancelled')}}',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 2000
                     });
                 }
             })

@@ -54,20 +54,30 @@ class AuthController extends Controller
     {
         //user is not verified so he can not login
         $user = User::where('phone', $request->phone)->first();
-        if($user->is_verified == 0){
-            return response()->json([
-                'error' => "this account is not verified"
-            ], 400);
+        if($user != null){
+            if($user->is_verified == 0){
+                return response()->json([
+                    'error' => "this account is not verified"
+                ], 400);
+            }
+            
+            $credentials = $request->only('phone', 'password');
+            
+            if(!$user->token){
+                if($this->guard()->attempt($credentials)){
+                    $user->update(['token' => $this->guard()->attempt($credentials)]);
+                    return $this->respondWithToken($user);
+                }
+                else{
+                    return response()->json([
+                        'error' => 'invalide phone or password'
+                    ], 400);
+                }
+            }
+            else{
+                return $this->respondWithToken($user);
+            }
         }
-        
-        $credentials = $request->only('phone', 'password');
-        
-        if($user->token == null){
-            $user->update(['token' => $this->guard()->attempt($credentials)]);
-        }
-
-        return $this->respondWithToken($user);
-
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
@@ -99,25 +109,35 @@ class AuthController extends Controller
     {
         //user is not verified so he can not login
         $user = User::where('email', $request->email)->first();
-        if($user->is_verified == 0){
-            return response()->json([
-                'error' => "this account is not verified"
-            ], 400);
+        if($user != null){
+            if($user->is_verified == 0){
+                return response()->json([
+                    'error' => "this account is not verified"
+                ], 400);
+            }
+    
+            $credentials = $request->only('email', 'password');
+    
+            if(!$user->token){
+                if($this->guard()->attempt($credentials)){
+                    $user->update(['token' => $this->guard()->attempt($credentials)]);
+                    return $this->respondWithToken($user);
+                }
+                else{
+                    return response()->json([
+                        'error' => 'invalide email or password'
+                    ], 400);
+                }
+            }
+            else{
+                return $this->respondWithToken($user);
+            }
         }
-
-        $credentials = $request->only('email', 'password');
-
-        if($user->token == null){
-            $user->update(['token' => $this->guard()->attempt($credentials)]);
-        }
-
-        return $this->respondWithToken($user);
+        return response()->json(['error' => 'Unauthorized'], 401);
 
         // if ($token = $this->guard()->attempt($credentials)) {
         //     return $this->respondWithToken($token);
         // }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
@@ -184,7 +204,6 @@ class AuthController extends Controller
 
     //Verify user
     public function verify(Request $request){
-        
         if($request->email && $request->code){
             $user = User::where('email', $request->email)->first();
             $user_code = $user->code;
@@ -198,18 +217,25 @@ class AuthController extends Controller
             }
         }
         return response()->json([
-            'error' => 'user_id and activation code are need'
+            'error' => 'user email and activation code are need'
         ], 400);
     }
 
     public function changePassword(Request $request){
-
-        $credentials = $request->only('email', 'password');
+        
+        $user = auth()->user();
+        if($request->email != null){
+            $credentials = $request->only('email', 'password');   
+        }
+        else{
+            $credentials = $request->only('phone', 'password');
+        }
         
         if ($token = $this->guard()->attempt($credentials)) {
-            $user = auth()->user(); 
             if (Hash::check($request->password, $user->password)){ 
-                $user->fill(['password' => Hash::make($request->new_password)])->save();
+                // $user->fill(['password' => Hash::make($request->new_password)])->save();
+                $user->password = Hash::make($request->new_password);
+                $user->save();
                 return response(['data' => 'Password reset'], 200);
             }
             return response()->json([
@@ -221,11 +247,11 @@ class AuthController extends Controller
     }
 
     public function resendCode(Request $request){
-
-        if($request->user_id && $request->email){
-            if(!User::find($request->user_id)->is_verified){
+        if($request->email){
+            $user = User::where('email', $request->email)->first();
+            if(!$user->is_verified){
                 $code = $this->createVerificationCode();
-                User::find($request->user_id)->update(['code' => $code]);
+                $user->update(['code' => $code]);
                 //send email with new verification code
                 $this->sendEmail($request->email, $code);
                 return response()->json([

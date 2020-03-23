@@ -64,7 +64,7 @@
                                                 @if($user->is_blocked == 1)<i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a>
                                         </td>
                                         <td>
-                                            <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
+                                            <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:100px; height:100px">
                                         </td>
                                         <td>
                                             <a href="{{route('users.show', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-eye" aria-hidden="true"></i></a>

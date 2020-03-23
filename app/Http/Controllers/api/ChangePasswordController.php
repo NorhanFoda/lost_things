@@ -30,4 +30,5 @@ class ChangePasswordController extends Controller
         $this->getPasswordResetTableRow($request)->delete();
         return response()->json(['data' => 'Password Successfuly Changed'], 201);
     }
+    
 }

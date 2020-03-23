@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Image;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 
 class CategoriesController extends Controller
@@ -59,7 +60,7 @@ class CategoriesController extends Controller
 
         $this->validate($request, [
             'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         //Create category
@@ -67,23 +68,34 @@ class CategoriesController extends Controller
             'title' => $request->title,
             'user_id' => auth()->user()->id
         ]);
-
-        //Make image name unique
-        $full_file_name = $request->image;
-        $file_name = pathinfo($full_file_name, PATHINFO_FILENAME);
-        $extension = $request->image->getClientOriginalExtension();
-        $file_name_to_store = $file_name.'_'.time().'.'.$extension;
         
-        //Upload image
-        $path = $request->image->move(public_path('/images/'), $file_name_to_store);
-        $url = url('/images/'.$file_name_to_store);
-
-        $old_image = Image::where('post_id', $id)->first();
-        if($old_image != null){
-            $old_image->update(['path' => $url, 'post_id' => $id]);
-        }
-        else{
-            Image::create(['path' => $url, 'post_id' => $id]);
+        if($request->image != null){
+            $imageRules = array(
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            );
+            $image_to_validate = array('image' => $request->image);
+            $imageValidator = Validator::make($image_to_validate, $imageRules);
+            if ($imageValidator->fails()) {
+                return $imageValidator->messages();
+            }
+            
+            //Make image name unique
+            $full_file_name = $request->image;
+            $file_name = pathinfo($full_file_name, PATHINFO_FILENAME);
+            $extension = $request->image->getClientOriginalExtension();
+            $file_name_to_store = $file_name.'_'.time().'.'.$extension;
+            
+            //Upload image
+            $path = $request->image->move(public_path('/images/'), $file_name_to_store);
+            $url = url('/images/'.$file_name_to_store);
+    
+            $old_image = Image::where('post_id', $id)->first();
+            if($old_image != null){
+                $old_image->update(['path' => $url, 'post_id' => $id]);
+            }
+            else{
+                Image::create(['path' => $url, 'post_id' => $id]);
+            }
         }
 
         session()->flash('message', trans('admin.category_updated'));

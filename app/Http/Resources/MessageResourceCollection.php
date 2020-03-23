@@ -16,9 +16,12 @@ class MessageResourceCollection extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'content' => $this->message,
+            'image' => $this->image,
             'type' => ($this->user_id == auth()->user()->id && $this->type == 0) ? 'auth sent' : 'auth received',
-            'since' => $this->created_at->diffForHumans(\Carbon\Carbon::now())
+            'since' => $this->created_at->diffForHumans(\Carbon\Carbon::now()),
+            'user_id' => $this->user_id,
         ];
     }
 }

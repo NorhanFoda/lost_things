@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Comment;
 use App\Models\Image;
-use App\Models\Post;
+use App\Models\Favorite;
 
 class Post extends Model
 {
@@ -24,7 +24,11 @@ class Post extends Model
     public function images(){
         return $this->hasMany(Image::class);
     }
-
+    
+    public function favorite(){
+        return $this->belongsTo(Favoriye::class);
+    }
+    
     public function category(){
         return $this->hasOne(Post::class, 'id', 'category_id');
     }

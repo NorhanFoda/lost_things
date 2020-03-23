@@ -22,7 +22,11 @@ class CommentsController extends Controller
      */
     public function index(Post $post)
     {
-        return CommentResourceCollection::collection($post->comments);
+        
+        return response()->json([
+            'data' => CommentResourceCollection::collection($post->comments),
+            'comments_count' => count($post->comments) ,
+        ], 200);
     }
 
     /**

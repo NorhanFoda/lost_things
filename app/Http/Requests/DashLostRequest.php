@@ -32,7 +32,7 @@ class DashLostRequest extends FormRequest
             'images' => 'required|array',
         ];
     }
-
+    
     public function messages(){
         return [
             'title.required' => trans('admin.title_required'),

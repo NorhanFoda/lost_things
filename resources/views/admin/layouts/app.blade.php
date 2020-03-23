@@ -14,7 +14,6 @@
     <link rel="apple-touch-icon" href="{{asset('admin/app-assets/app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('admin/app-assets/images/ico/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     @if(\App()->getLocale()=='ar')
@@ -206,4 +205,52 @@
 </body>
 <!-- END: Body-->
 
+{{--<!-- The core Firebase JS SDK is always required and must be listed first -->--}}
+{{--<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>--}}
+
+{{--<!-- TODO: Add SDKs for Firebase products that you want to use--}}
+{{--     https://firebase.google.com/docs/web/setup#available-libraries -->--}}
+{{--<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>--}}
+
+{{--<script>--}}
+{{--    // Your web app's Firebase configuration--}}
+{{--    var firebaseConfig = {--}}
+{{--        apiKey: "AIzaSyBW4BSa4pI_JiQwLwVvEyWUg958we_J_t4",--}}
+{{--        authDomain: "test-b24cd.firebaseapp.com",--}}
+{{--        databaseURL: "https://test-b24cd.firebaseio.com",--}}
+{{--        projectId: "test-b24cd",--}}
+{{--        storageBucket: "test-b24cd.appspot.com",--}}
+{{--        messagingSenderId: "356434384963",--}}
+{{--        appId: "1:356434384963:web:65548ce978cc0cf2749cf6",--}}
+{{--        measurementId: "G-9N5BQRBCS3"--}}
+{{--    };--}}
+{{--    // Initialize Firebase--}}
+{{--    firebase.initializeApp(firebaseConfig);--}}
+{{--    firebase.analytics();--}}
+{{--</script>--}}
+
+{{--<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>--}}
+{{--<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-messaging.js"></script>--}}
+
+{{--<script>--}}
+{{--    // Give the service worker access to Firebase Messaging.--}}
+{{--    // Note that you can only use Firebase Messaging here, other Firebase libraries--}}
+{{--    // are not available in the service worker.--}}
+
+
+
+{{--    // importScripts('https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js');--}}
+{{--    // importScripts('https://www.gstatic.com/firebasejs/7.10.0/firebase-messaging.js');--}}
+
+{{--    // Initialize the Firebase app in the service worker by passing in the--}}
+{{--    // messagingSenderId.--}}
+{{--    // firebase.initializeApp({--}}
+{{--    //     'messagingSenderId': '1:356434384963:web:65548ce978cc0cf2749cf6'--}}
+{{--    // });--}}
+{{--    firebase.initializeApp(firebaseConfig);--}}
+
+{{--    // Retrieve an instance of Firebase Messaging so that it can handle background--}}
+{{--    // messages.--}}
+{{--    const messaging = firebase.messaging();--}}
+{{--</script>--}}
 </html>

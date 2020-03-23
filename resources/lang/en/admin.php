@@ -119,7 +119,7 @@ return [
     'category_updated' => 'Category updated successfuly',
     'category_deleted' => 'Category deleted successfuly',
     'category_can_not_be_deleted' => 'Category can not be deleted',
-    '' => '',
+    'user_can_not_be_deleted' => 'User can not be deleted',
     '' => '',
     '' => '',
     '' => '',

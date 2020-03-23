@@ -61,7 +61,7 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$cat->title}}</td>
                                         <td>
-                                            <img @if(count($cat->images) > 0) src="{{$cat->images[0]->path}}" @else src="no image" @endif alt="user" style="width:200px; height:100px">
+                                            <img @if(count($cat->images) > 0) src="{{$cat->images[0]->path}}" @else src="no image" @endif alt="user" style="width:100px; height:100px">
                                         </td>
                                         <td>
                                             <a href="{{route('categories.editCategory', $cat->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

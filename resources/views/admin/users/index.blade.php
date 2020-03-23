@@ -67,17 +67,17 @@
                                         <td>{{$user->email ? $user->email : trans('admin.nodata')}}</td>
                                         <td>{{$user->phone ? $user->phone : trans('admin.nodata')}}</td>
                                         <td>
-                                            <a @if($user->is_blockded == 0 ) title="Unblock" @else title="Block" @endif onclick="return true;" id="confirm-color" object_id='{{$user->id}}' object_status='{{$user->is_blocked}}'  class="ban-unlock">
-                                                @if($user->is_blocked == 1)<i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a>
+                                            <a @if($user->is_blockded == 0 ) title="Block" @else title="Unblock" @endif onclick="return true;" id="confirm-color" object_id='{{$user->id}}' object_status='{{$user->is_blocked}}'  class="ban-unlock">
+                                                @if($user->is_blocked == 1) <i class="fa fa-ban"></i> @else <i class="fa fa-unlock"></i>@endif </a>
                                         </td>
                                         <td>
-                                            <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:200px; height:100px">
+                                            <img @if($user->image) src={{$user->image}} @else src="no image" @endif alt="user" style="width:100px; height:100px">
                                         </td>
                                         <td>
                                             <a href="{{route('users.show', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             <a href="{{route('users.edit', $user->id)}}" class="btn" style="color:white;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a title="delete" onclick="return true;" id="confirm-color" object_id='{{$user->id}}'
-                                                class="delete btn" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                class="delete" style="color:white;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,6 +87,7 @@
                 </div>
             </div>
         </div>
+        {{$users->links()}}
     </div>
     </div>
     <!--end div-->
@@ -162,7 +163,7 @@
                     swalWithBootstrapButtons.fire({
                         title: '{{trans('admin.alert_cancelled')}}',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 2000
                     });
                 }
             })
@@ -208,15 +209,15 @@
                                     });
                                     window.location.reload(); 
                                 }
-                                // else if(data.data == 0){
-                                //     Swal.fire({
-                                //         type: 'success',
-                                //         title: '{{trans('admin.user_unblocked')}}',
-                                //         showConfirmButton: false,
-                                //         timer: 1500
-                                //     });
-                                //     window.location.reload(); 
-                                // }
+                                else if(data.data == 0){
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: '{{trans('admin.user_can_not_be_deleted')}}',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    window.location.reload(); 
+                                }
                             }
                         });
                 } else if (

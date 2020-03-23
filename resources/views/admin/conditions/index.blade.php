@@ -77,6 +77,7 @@
                 </div>
             </div>
         </div>
+        {{$conditions->links()}}
     </div>
     </div>
     <!--end div-->

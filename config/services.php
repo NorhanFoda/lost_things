@@ -33,12 +33,20 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
+    // 'firebase' => [
+    //     'api_key' => 'API_KEY', // Only used for JS integration
+    //     'auth_domain' => 'AUTH_DOMAIN', // Only used for JS integration
+    //     'database_url' => 'https://lostschat.firebaseio.com',
+    //     'secret' => '7H4msC6sCDrhfNs8u0CbcRYrqi2L7XmBCFxtzynh',
+    //     'storage_bucket' => 'STORAGE_BUCKET', // Only used for JS integration
+    // ]
     'firebase' => [
         'api_key' => 'API_KEY', // Only used for JS integration
         'auth_domain' => 'AUTH_DOMAIN', // Only used for JS integration
-        'database_url' => 'https://lostschat.firebaseio.com',
-        'secret' => '7H4msC6sCDrhfNs8u0CbcRYrqi2L7XmBCFxtzynh',
+        'database_url' => 'https://raneem-a427d.firebaseio.com',
+        'secret' => 'DErd5Sii34Bg2aDVBg2J2qfqxpn5LCC8AX71h7vY',
         'storage_bucket' => 'STORAGE_BUCKET', // Only used for JS integration
     ]
+    
 
 ];

@@ -3,16 +3,16 @@
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	
+
 	Route::get('/', function () {
 	\LaravelLocalization::setLocale('ar');
 	$url = \LaravelLocalization::getLocalizedURL(App::getLocale(), \URL::previous());
 		return Redirect::to($url);
 	});
 
-	//home page
+//home page
 	Route::get('/', 'dashboard\AdminHomeController@index')->middleware('auth:web');
-	
+
 	//Users
 	Route::resource('users', 'dashboard\UserController')->middleware('auth:web');
 	Route::post('delete', 'dashboard\UserController@delete')->name('users.delete')->middleware('auth:web');

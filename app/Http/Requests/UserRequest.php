@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
             'password_confirmation' => 'min:6',
         ];
     }
-
+    
     public function messages(){
         return [
             'name.required' => trans('admin.name_required'),

@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-
+        
         @foreach($errors->all() as $error)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span style="color:red;">{{$error}}</span>
@@ -36,7 +36,7 @@
             </button>
         </div>    
         @endforeach
-
+        
         <div class="col-12">
             <div class="card">
                 <div class="card-header">

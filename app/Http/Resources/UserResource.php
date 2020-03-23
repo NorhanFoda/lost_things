@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\PostResourceCollection;
 
 class UserResource extends JsonResource
 {
@@ -17,7 +18,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->image
+            'image' => $this->image,
+            'posts' => PostResourceCollection::collection($this->posts),
         ];
     }
 }

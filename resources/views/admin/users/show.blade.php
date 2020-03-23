@@ -43,31 +43,33 @@
                                 <img src="{{$user->image}}" class="users-avatar-shadow rounded mb-2 pr-2 ml-1" 
                                     alt="avatar" style="width:150px; height:150px;">
                             </div>
+                            
                             <div class="col-12 col-sm-9 col-md-6 col-lg-5">
                                 <table>
                                     <tr>
-                                        <td class="font-weight-bold">{{trans('admin.email')}}</td>
-                                        <td>{{$user->email ? $user->email : trans('admin.nodata')}}</td>
+                                        <td class="font-weight-bold" style='margin: 5px; padding: 15px;'>{{trans('admin.email')}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$user->email ? $user->email : trans('admin.nodata')}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold">{{trans('admin.phone')}}</td>
-                                        <td>{{$user->phone ? $user->phone : trans('admin.nodata')}}</td>
+                                        <td class="font-weight-bold" style='margin: 5px; padding: 15px;'>{{trans('admin.phone')}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$user->phone ? $user->phone : trans('admin.nodata')}}</td>
                                     </tr>
                                 </table>
                             </div>
+                            
                             <div class="col-12 col-md-12 col-lg-5">
                                 <table class="ml-0 ml-sm-0 ml-lg-0">
                                     <tr>
-                                        <td class="font-weight-bold">{{trans('admin.status')}}</td>
-                                        <td>{{$user->is_blocked == 1 ? trans('admin.blocked') : trans('admin.unblocked')}}</td>
+                                        <td class="font-weight-bold" style='margin: 5px; padding: 15px;'>{{trans('admin.status')}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$user->is_blocked == 1 ? trans('admin.blocked') : trans('admin.unblocked')}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold">{{trans('admin.location')}}</td>
-                                        <td>{{$user->location ? $user->location : trans('admin.nodata')}}</td>
+                                        <td class="font-weight-bold" style='margin: 5px; padding: 15px;'>{{trans('admin.location')}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$user->location ? $user->location : trans('admin.nodata')}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold">{{trans('admin.birth_date')}}</td>
-                                        <td>{{$user->birth_date ? date('y-m-d', strtotime($user->birth_date)) : trans('admin.nodata')}}</td>
+                                        <td class="font-weight-bold" style='margin: 5px; padding: 15px;'>{{trans('admin.birth_date')}}</td>
+                                        <td style='margin: 5px; padding: 15px;'>{{$user->birth_date ? date('y-m-d', strtotime($user->birth_date)) : trans('admin.nodata')}}</td>
                                     </tr>
                                 </table>
                             </div>

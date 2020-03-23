@@ -79,6 +79,7 @@
                 </div>
             </div>
         </div>
+        {{$founds->links()}}
     </div>
     </div>
     <!--end div-->
@@ -136,6 +137,15 @@
                                     });
                                     window.location.reload(); 
                                 }
+                                // else if(data.data == 0){
+                                //     Swal.fire({
+                                //         type: 'success',
+                                //         title: '{{trans('admin.user_unblocked')}}',
+                                //         showConfirmButton: false,
+                                //         timer: 1500
+                                //     });
+                                //     window.location.reload(); 
+                                // }
                             }
                         });
                 } else if (

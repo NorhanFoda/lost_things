@@ -26,17 +26,25 @@ class MessageController extends Controller
 
     public function getChatPage($id){
         $chat = Chat::find($id);
-        return view('admin.chat.chat')->with('messages', $chat->messages)
+        if($chat->user1_id != auth()->user()->id){
+            return view('admin.chat.chat')->with('messages', $chat->messages)
+                                        ->with('chat_id', $id)
+                                        ->with('user_id', $chat->user1_id);   
+        }
+        else{
+            return view('admin.chat.chat')->with('messages', $chat->messages)
                                         ->with('chat_id', $id)
                                         ->with('user_id', $chat->user2_id);
+        }
     }
 
     public function store(Request $request) {
         $chat = Chat::where('id', $request->chat_id)->first();
+
         if(!$chat){
             $chat = Chat::create([
-                'user1_id' => auth()->user()->id, //sender
-                'user2_id' => $request->user2_id //receiver
+                'user1_id' => $request->user2_id,  //sender
+                'user2_id' =>  auth()->user()->id  //receiver
             ]);
         }
 

@@ -12,6 +12,7 @@ use App\Models\Block;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Chat;
+use App\Models\Token;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -97,5 +98,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function chats(){
         return $this->hasMany(Chat::class, 'user1_id', 'id');
+    }
+    
+    public function tokens(){
+        return $this->hasMany(Token::class);
     }
 }

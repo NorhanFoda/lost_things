@@ -9,5 +9,7 @@
             selector: '.myTextArea'
         });
     </script>
+
+
+
 </footer>
-<!-- END: Footer-->

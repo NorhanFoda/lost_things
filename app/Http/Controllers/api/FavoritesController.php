@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Favorite;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+use App\Http\Resources\FavoritePostsCollection;
+use Carbon\Carbon;
 
 class FavoritesController extends Controller
 {
@@ -64,5 +67,26 @@ class FavoritesController extends Controller
         return response()->json([
             'error' => 'Post does not exist in favorites'
         ], 400);
+    }
+    
+    public function getFavorites($id){
+        if($id == auth()->user()->id){
+            $user = User::find($id);
+            $favorites = $user->favorites;
+            $posts = array();
+            foreach($favorites as $fav){
+                $get_post = Post::where('id', $fav->post_id)->first();
+                if($get_post){
+                    $post = new FavoritePostsCollection($get_post);
+                    array_push($posts, $post);   
+                }
+            }
+            return response()->json([
+                'data' => ['favorites' => $favorites, 'posts' => $posts]
+            ], 200);    
+        }
+        return response()->json([
+            'error' => 'Unauthorized'
+        ], 400);    
     }
 }

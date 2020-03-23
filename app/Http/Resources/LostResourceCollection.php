@@ -16,28 +16,49 @@ class LostResourceCollection extends JsonResource
      */
     public function toArray($request)
     {
-        $is_blocked = Block::where('user_id', auth()->user()->id)->first()->blocked_id;
-        if($is_blocked == null){
+        $blocked = Block::where('user_id', auth()->user()->id)->first();
+        $is_favorite = 0;
+        $favorites = auth()->user()->favorites;
+        if(count($favorites) > 0){
+            foreach($favorites as $fav){
+                if($fav->post_id == $this->id){
+                    $is_favorite = 1;
+                }
+            }
+        }
+
+        if($blocked != null){
+            $is_blocked = $blocked->blocked_id;
+            
+            if($this->user_id != $is_blocked){
+                return [
+                    'id' => $this->id,
+                    'title' => $this->title,
+                    'description' => $this->description,
+                    'image' => $this->images,
+                    'category' => $this->category_id,
+                    'is_favorite' => $is_favorite,
+                    'comments' => count($this->comments),
+                    'published_at' => $this->created_at,
+                    'published_sence' => $this->created_at->diffForHumans(Carbon::now()),
+                    'show_details' => route('losts.show', $this->id)
+                ];
+            }
+        }
+        else{
             return [
                 'id' => $this->id,
                 'title' => $this->title,
                 'description' => $this->description,
                 'image' => $this->images,
+                'category' => $this->category_id,
+                'is_favorite' => $is_favorite,
+                'comments' => count($this->comments),
                 'published_at' => $this->created_at,
                 'published_sence' => $this->created_at->diffForHumans(Carbon::now()),
                 'show_details' => route('losts.show', $this->id)
             ];
         }
-        if($this->user_id != $is_blocked){
-            return [
-                'id' => $this->id,
-                'title' => $this->title,
-                'description' => $this->description,
-                'image' => $this->images,
-                'published_at' => $this->created_at,
-                'published_sence' => $this->created_at->diffForHumans(Carbon::now()),
-                'show_details' => route('losts.show', $this->id)
-            ];
-        }
+        
     }
 }

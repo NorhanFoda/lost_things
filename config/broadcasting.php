@@ -17,7 +17,6 @@ return [
 
     'default' => env('BROADCAST_DRIVER', 'null'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Broadcast Connections
@@ -53,10 +52,6 @@ return [
 
         'null' => [
             'driver' => 'null',
-        ],
-        
-        'fcm' => [
-            'key' => env('FCM_API_KEY','AIzaSyDQ7IK19NIeL1vvkILXCVY6S3OP-pIwVWI')
         ],
 
     ],

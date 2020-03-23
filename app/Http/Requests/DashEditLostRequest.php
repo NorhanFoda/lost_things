@@ -31,7 +31,7 @@ class DashEditLostRequest extends FormRequest
             'category_id' => 'required',
         ];
     }
-
+    
     public function messages(){
         return [
             'title.required' => trans('admin.title_required'),

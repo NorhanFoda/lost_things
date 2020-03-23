@@ -20,6 +20,7 @@ class ChatController extends Controller
 
     //get all users with theri messages
     public function getChatsList(){
+    
         $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->get();
         return response()->json([
             'data' => ChatResourceCollection::collection($chats)
@@ -27,9 +28,9 @@ class ChatController extends Controller
     }
 
     public function getChat(Request $request){
-        $messages = Message::where('chat_id' , $request->chat_id)->get();
+        // dd(auth()->user()->id);
         return response()->json([
-            'dat' => new ChatResource(Chat::find($request->chat_id))
+            'data' => new ChatResource(Chat::find($request->chat_id))
         ], 200);
     }
 
@@ -54,7 +55,6 @@ class ChatController extends Controller
         if($request->chat_id == null){
             $chat = Chat::Where([['user1_id' , $request->sender], ['user2_id' , $request->receiver]])
                                 ->orWhere([['user2_id' , $request->sender] , ['user1_id' , $request->receiver]])->first();
-            // dd($chat);
             if(!$chat){
                 $chat = Chat::create([
                     'user1_id' => $request->sender, //sender
@@ -63,7 +63,7 @@ class ChatController extends Controller
             }
             $request->chat_id = $chat->id;
         }
-
+    
         if($request->image != null){
             $imageRules = array(
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -98,6 +98,7 @@ class ChatController extends Controller
             'type' => 0,
             'chat_id' => $request->chat_id
         ]);
+        
 
         //create reciever messages
         $received = Message::create([

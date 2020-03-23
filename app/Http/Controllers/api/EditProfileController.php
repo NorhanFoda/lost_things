@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Lang;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\PostResourceCollection;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 
 class EditProfileController extends Controller
@@ -17,9 +19,11 @@ class EditProfileController extends Controller
     }
 
     public function getUserProfile($id){
-  
+        // return response()->json([
+        //     'data' => User::with('posts')->where('id', $id)->first()
+        // ], 200);
         return response()->json([
-            'data' => User::with('posts')->where('id', $id)->first()
+            'data' => new UserResource(User::find($id))
         ], 200);
     }
 
@@ -212,7 +216,7 @@ class EditProfileController extends Controller
             'error' => 'User is UN AUTHORIZED to performe this action'
         ], 400);
     }
-
+    
     public function editProfile(Request $request){
         if(auth()->user()->id == $request->id){
             
