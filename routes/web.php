@@ -55,6 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
 	//Chat
 	Route::get('get_messages', 'dashboard\MessageController@getMessages')->name('chat.index')->middleware('auth:web');
+	Route::post('getChatUsers', 'dashboard\MessageController@getChatUsers')->name('getChatUsers');
 	Route::get('get_chat_page/{id}', 'dashboard\MessageController@getChatPage')->name('chat.getChat')->middleware('auth:web');
 	Route::post('chat', 'dashboard\MessageController@store')->name('chat.store')->middleware('auth:web');
 	Route::post('delete_chat', 'dashboard\MessageController@deleteChat')->name('chats.delete')->middleware('auth:web');

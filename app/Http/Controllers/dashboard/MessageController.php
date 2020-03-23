@@ -20,8 +20,9 @@ class MessageController extends Controller
     }
 
     public function getMessages(){
-        $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->get();
-        return view('admin.chat.index')->with('chats', $chats);
+        // $chats = Chat::where('user1_id', auth()->user()->id)->orWhere('user2_id', auth()->user()->id)->get();
+        // return view('admin.chat.index')->with('chats', $chats);
+        return view('admin.chat.index');
     }
 
     public function getChatPage($id){
@@ -35,6 +36,28 @@ class MessageController extends Controller
             return view('admin.chat.chat')->with('messages', $chat->messages)
                                         ->with('chat_id', $id)
                                         ->with('user_id', $chat->user2_id);
+        }
+    }
+    
+
+    public function getChatUsers(Request $request){
+        if($request->ajax()){
+            $chat = Chat::find($request->id);
+            $sender = null;
+            if($chat->user1_id != auth()->user()->id){
+                $sender = User::find($chat->user1_id);
+            }
+            else if($chat->user2_id != auth()->user()->id){
+                $sender = User::find($chat->user2_id);
+            }
+            $last_msg = Message::where('chat_id', $request->id)->orderBy('id', 'desc')->get(['message', 'created_at'])->first();
+            $sent_time = $last_msg->created_at->diffForHumans(\Carbon\Carbon::now());
+            return response()->json([
+                'chat_id' => $chat->id,
+                'sender' => $sender,
+                'last_msg' => $last_msg,
+                'sent_time' => $sent_time
+            ], 200);
         }
     }
 
@@ -94,6 +117,15 @@ class MessageController extends Controller
             session()->flash('success', 'chat deleted');
             return response()->json([
                 'data' => 1,
+            ], 200);
+        }
+    }
+
+    public function getSender(Request $request){
+        if($request->ajax()){
+            $user = User::find($request->id);
+            return response()->json([
+                'user' => $user
             ], 200);
         }
     }

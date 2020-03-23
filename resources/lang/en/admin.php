@@ -57,7 +57,7 @@ return [
 
     //conditions and rules
     'text' => 'Text',
-    '' => '',
+    'chats' => 'Chats',
     '' => '',
     '' => '',
     '' => '',

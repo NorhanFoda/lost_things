@@ -113,7 +113,7 @@ return [
     'category_deleted' => 'تم حذف النوع بنجاح',
     'category_can_not_be_deleted' => 'لا يمكن حذف النوع',
     'user_can_not_be_deleted' => 'لا يمكن حذف المستخدم',
-    '' => '',
+    'chats' => 'المحادثات',
     '' => '',
     '' => '',
     '' => '',
