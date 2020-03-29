@@ -13,7 +13,7 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_notifications', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('msg_ar')->nullable();
             $table->unsignedBigInteger('user_id')->nullable()->index();
@@ -29,6 +29,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_notifications');
+        Schema::dropIfExists('notifications');
     }
 }

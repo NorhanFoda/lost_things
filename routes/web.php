@@ -63,6 +63,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	//Broadcast notification
 	Route::get('/broadcast', 'dashboard\NotificationController@create')->name('notifications.create');
 	Route::post('/broadcast', 'dashboard\NotificationController@store')->name('notifications.store');
+	Route::get('/notifications', 'dashboard\NotificationController@index')->name('notifications.index');
+	Route::post('/notifications_delete', 'dashboard\NotificationController@delete')->name('notifications.delete');
+	
 
 	//change lang
 	Route::get('change_locale/{locale}', 'dashboard\AdminController@change_locale')->name('change_locale');

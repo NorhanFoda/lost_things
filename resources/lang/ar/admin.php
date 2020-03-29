@@ -126,7 +126,9 @@ return [
     'please_enter_mgs_ar' => 'من فضلك ادخل الرساله بالعربيه',
     'please_enter_mgs_en' => 'من فضلك ادخل الرساله بالانجليزيه',
     'notification_created' => 'تم ارسال الاشعار بنجاح',
-
+    'notification_deleted' => 'تم حذف الاشعار',
+    'notification_created' => 'تمت اضافة الاشعار',
+    'sent_date' => 'تاريخ الارسال',
 
     //alert
     'alert_title' => 'هل انت متأكد؟',

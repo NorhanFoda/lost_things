@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AdminNotification;
+use App\Models\Notification;
 use Auth;
 
 class NotificationController extends Controller
@@ -15,7 +15,7 @@ class NotificationController extends Controller
     }
 
     public function getNotifyList(){
-        $notifications = AdminNotification::where('user_id', auth()->user()->id)->where('read', 0)->get();
+        $notifications = Notification::where('user_id', auth()->user()->id)->where('read', 0)->get();
         if(count($notifications) > 0){
             foreach($notifications as $not){
                 $not->update([
@@ -38,7 +38,7 @@ class NotificationController extends Controller
     }
 
     public function count(){
-        $notifications = AdminNotification::where('user_id', auth()->user()->id)->where('read', 0)->get();
+        $notifications = Notification::where('user_id', auth()->user()->id)->where('read', 0)->get();
         
         if(count($notifications) > 0){
             return response()->json([

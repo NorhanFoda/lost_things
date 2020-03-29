@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-use Mpociot\Firebase\SyncsWithFirebase;
+// use Mpociot\Firebase\SyncsWithFirebase;
 
-class AdminNotification extends Model
+class Notification extends Model
 {
-    use SyncsWithFirebase;
+    // use SyncsWithFirebase;
     protected $fillable = [
         'msg_ar', 'user_id', 'read'
     ];

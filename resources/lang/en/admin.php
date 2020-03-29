@@ -62,6 +62,9 @@ return [
     'please_enter_mgs_ar' => 'Please enter message in Arabic',
     'please_enter_mgs_en' => 'Please enter message in English',
     'notification_created' => 'Notification sent successfuly',
+    'notification_deleted' => 'Notification deleted successfuly',
+    'notification_created' => 'Notification created successfuly',
+    'sent_date' => 'Send date',
 
 
     //conditions and rules

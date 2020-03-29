@@ -21,10 +21,17 @@
             </li>
 
             <li class=" nav-item"><a href="{{route('losts.getLosts')}}"><i class="fa fa-align-right"></i><span class="menu-title" data-i18n="Email">{{trans('admin.losts')}}</span></a>
+            </li>
             <li class=" nav-item"><a href="{{route('founds.getFounds')}}"><i class="fa fa-align-right"></i><span class="menu-title" data-i18n="Email">{{trans('admin.founds')}}</span></a>
-                <li class=" nav-item"><a href="{{route('categories.getCategory')}}"><i class="fa fa-th-large"></i><span class="menu-title" data-i18n="Email">{{trans('admin.categories')}}</span></a>
+            </li>
+            <li class=" nav-item"><a href="{{route('categories.getCategory')}}"><i class="fa fa-th-large"></i><span class="menu-title" data-i18n="Email">{{trans('admin.categories')}}</span></a>
+            </li>
             <li class=" nav-item"><a href="{{route('conditions.index')}}"><i class="fa fa-gavel"></i><span class="menu-title" data-i18n="Email">{{trans('admin.conditions_and_rules')}}</span></a>
+            </li>
             <li class=" nav-item"><a href="{{route('chat.index')}}"><i class="fa fa-commenting"></i><span class="menu-title" data-i18n="Email">{{trans('admin.user_messages')}}</span></a>
+            </li>
+            <li class=" nav-item"><a href="{{route('notifications.index')}}"><i class="fa fa-bell"></i><span class="menu-title" data-i18n="Email">{{trans('admin.notifications')}}</span></a>
+            </li>
         </ul>
     </div>
 </div>

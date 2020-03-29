@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Token;
-use App\Models\AdminNotification;
+use App\Models\Notification;
 use App\User;
 
 class NotificationController extends Controller
@@ -14,6 +14,12 @@ class NotificationController extends Controller
     public function __construct()
     {
         Auth::shouldUse('web');
+    }
+
+    public function index(){
+        $all_data = Notification::orderBy('created_at', 'desc')->get(['id', 'msg_ar', 'created_at']);
+        $notifications = $all_data->unique('msg_ar'); 
+        return view('admin.notifications.index', compact('notifications'));
     }
 
     public function create(){
@@ -30,7 +36,7 @@ class NotificationController extends Controller
 
         if(count($users) > 0){
             foreach($users as $user){
-                $notifications = AdminNotification::create([
+                $notifications = Notification::create([
                     'msg_ar' => $request->msg_ar,
                     'user_id' => $user->id,
                     'read' => 0
@@ -38,7 +44,7 @@ class NotificationController extends Controller
             }
         }
 
-        $notification = Token::get('token');
+        $notification = Token::pluck('token');
 
         // foreach ($notification as $key => $value) {
         //     $this->notification($value->token, $request);
@@ -50,7 +56,7 @@ class NotificationController extends Controller
         
 
         session()->flash('message', trans('admin.notification_created'));
-        return redirect('/');
+        return redirect()->route('notifications.index');
     }
 
     public function notification($tokenList, $request){
@@ -60,7 +66,7 @@ class NotificationController extends Controller
         // $token=$token;
         
         $notification = [
-            'body' => $request->mgs_ar,
+            'body' => $request->msg_ar,
             'sound' => true,
         ];
 
@@ -88,5 +94,20 @@ class NotificationController extends Controller
         $result = curl_exec($ch);
         curl_close($ch);
 
+    }
+
+    public function delete(Request $request){
+        if($request->ajax()){
+            $nots = Notification::where('msg_ar', Notification::find($request->id)->msg_ar)->get();
+            if(count($nots) > 0){
+                foreach($nots as $not){
+                    $not->delete();
+                }
+            }
+            // session()->flash('message', trans('condition_deleted'));
+            return response()->json([
+                'data' => 1,
+            ], 200);
+        }
     }
 }
