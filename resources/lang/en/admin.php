@@ -54,6 +54,15 @@ return [
     'no_comments' => 'No comments yet',
     'no_posts' => 'No posts yet', 
 
+    //notifications
+    'notify' => 'Broadcast notification',
+    'notifications' => 'Notifications',
+    'mgs_ar' => 'Message in Arabic',
+    'mgs_en' => 'Message in English',
+    'please_enter_mgs_ar' => 'Please enter message in Arabic',
+    'please_enter_mgs_en' => 'Please enter message in English',
+    'notification_created' => 'Notification sent successfuly',
+
 
     //conditions and rules
     'text' => 'Text',

@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Chat;
 use App\Models\Token;
+use App\Models\Notification;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -102,5 +103,9 @@ class User extends Authenticatable implements JWTSubject
     
     public function tokens(){
         return $this->hasMany(Token::class);
+    }
+
+    public function notifications(){
+        return $this->hasMany(Notification::class)->latest();
     }
 }

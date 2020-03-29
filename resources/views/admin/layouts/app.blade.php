@@ -79,7 +79,7 @@
     <div class="content-wrapper">
         <div class="content-header row">
         </div>
-
+        <a href="{{route('notifications.create')}}" class="btn btn-primary"><i class="fa fa-bell"></i><span class="menu-title" data-i18n="Dashboard">{{trans('admin.notify')}}</span></a>
 @yield('content')
 
     </div>

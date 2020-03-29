@@ -60,6 +60,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 	Route::post('chat', 'dashboard\MessageController@store')->name('chat.store')->middleware('auth:web');
 	Route::post('delete_chat', 'dashboard\MessageController@deleteChat')->name('chats.delete')->middleware('auth:web');
 
+	//Broadcast notification
+	Route::get('/broadcast', 'dashboard\NotificationController@create')->name('notifications.create');
+	Route::post('/broadcast', 'dashboard\NotificationController@store')->name('notifications.store');
+
 	//change lang
 	Route::get('change_locale/{locale}', 'dashboard\AdminController@change_locale')->name('change_locale');
 

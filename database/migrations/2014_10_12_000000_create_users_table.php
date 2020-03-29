@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->boolean('location_active')->default(1)->nullable();
             $table->boolean('notification_active')->default(1)->nullable();
             $table->text('token')->nullable();
-            $table->integer('lang')->default(0)->nullable();
+            $table->integer('lang')->default(0)->nullable(); // 0 arabic - 1 english
             $table->rememberToken();
             $table->timestamps();
         });

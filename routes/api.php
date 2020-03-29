@@ -80,6 +80,10 @@ Route::group([
     Route::get('/get_token/{id}', 'api\TokenController@index');
     Route::post('/create_token', 'api\TokenController@create');
 
+    //Broadcast notifications
+    Route::get('/get_notify_list', 'api\NotificationController@getNotifyList');
+    Route::get('/get_notify_count', 'api\NotificationController@count');
+
 });
 
 //user unauthorized links
